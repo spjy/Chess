@@ -16,6 +16,10 @@ Board::Board() {
 
   this->initializeCapitals(Color::WHITE, 0);
   this->initializePawns(Color::WHITE, 1);
+  this->initializeOpenSpots(2);
+  this->initializeOpenSpots(3);
+  this->initializeOpenSpots(4);
+  this->initializeOpenSpots(5);
   this->initializePawns(Color::BLACK, 6);
   this->initializeCapitals(Color::BLACK, 7);
 
@@ -42,6 +46,16 @@ void Board::initializePawns(Color color, int row) {
   }
 }
 
+void Board::initializeOpenSpots(int row) {
+  for (int i = 0; i < 8; i++) {
+    Open open(Position { row, i });
+
+    Open *ptr = &open;
+
+    this->board[row][i] = ptr;
+  }
+}
+
 void Board::initializeCapitals(Color color, int row) {
   Rook rook(color, Position { row, 0 });
   Knight knight(color, Position { row, 1 });
@@ -51,6 +65,19 @@ void Board::initializeCapitals(Color color, int row) {
   Bishop bishop1(color, Position { row, 5 });
   Knight knight1(color, Position { row, 6 });
   Rook rook1(color, Position { row, 7 });
+}
+
+
+
+void Board::printBoard() {
+  for (int i = 0; i < board.size(); i++) {
+    for (int j = 0; i < board[i].size(); j++) {
+      std::cout << board[i][j]->getSymbol() + " ";
+      if (j == board[i].size() - 1) {
+        std::cout << std::endl;
+      }
+    }
+  }
 }
 
 // If movement isn't out off of the board, not if eaten

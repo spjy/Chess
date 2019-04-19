@@ -3,6 +3,7 @@
 #ifndef INCLUDE_BOARD_H_
 #define INCLUDE_BOARD_H_
 
+#include <iostream>
 #include <vector>
 #include "Piece.h"
 #include "Pawn.h"
@@ -11,8 +12,7 @@
 #include "Queen.h"
 #include "Knight.h"
 #include "King.h"
-
-using ChessBoard = std::vector<std::vector<Piece*> >;
+#include "Open.h"
 
 class Board {
  public:
@@ -20,7 +20,9 @@ class Board {
 
   Board();
   void initializePawns(Color color, int row);
+  void initializeOpenSpots(int row);
   void initializeCapitals(Color color, int row);
+  void printBoard();
   bool checkIfOffBoard();
   bool checkIfObstructed();
   bool movement();

@@ -32,6 +32,10 @@ class Piece {
     this->movement = movement;
   }
 
+  char getSymbol() {
+    return this->symbol;
+  }
+
   virtual void move() = 0;
   virtual void eat() = 0;
 };
