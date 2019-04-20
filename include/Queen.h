@@ -7,19 +7,7 @@
 
 class Queen : public Piece {
  public:
-  Queen(Color color, Position position) : Piece('q', color, position) {
-    Movement movement;
-
-    movement.forward = true;
-    movement.backward = true;
-    movement.diagonal = true;
-    movement.left = true;
-    movement.right = true;
-    movement.oneSpace = false;
-    movement.unlimitedSpaces = true;
-
-    Piece::setMovement(movement);
-  }
+  Queen(Color color, Position position);
 
   void move() override;
   void eat() override;

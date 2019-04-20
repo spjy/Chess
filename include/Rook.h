@@ -7,20 +7,7 @@
 
 class Rook : public Piece {
  public:
-  Rook(Color color, Position position) : Piece('r', color, position) {
-    Movement movement;
-
-    movement.forward = true;
-    movement.backward = true;
-    movement.diagonal = false;
-    movement.left = true;
-    movement.right = true;
-    movement.knight = false;
-    movement.oneSpace = false;
-    movement.unlimitedSpaces = true;
-
-    Piece::setMovement(movement);
-  }
+  Rook(Color color, Position position);
 
     void move() override;
     void eat() override;

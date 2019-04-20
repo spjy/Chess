@@ -7,20 +7,7 @@
 
 class Knight : public Piece {
  public:
-  Knight(Color color, Position position) : Piece('n', color, position) {
-    Movement movement;
-
-    movement.forward = false;
-    movement.backward = false;
-    movement.diagonal = false;
-    movement.left = false;
-    movement.right = false;
-    movement.knight = true;
-    movement.oneSpace = false;
-    movement.unlimitedSpaces = false;
-
-    Piece::setMovement(movement);
-  }
+  Knight(Color color, Position position);
 
   void move() override;
   void eat() override;

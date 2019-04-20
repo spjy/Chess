@@ -7,17 +7,7 @@
 
 class Bishop : public Piece {
  public:
-  Bishop(Color color, Position position) : Piece('b', color, position) {
-    Movement movement;
-    movement.forward = false;
-    movement.backward = false;
-    movement.diagonal = true;
-    movement.left = false;
-    movement.right = false;
-    movement.knight = false;
-    movement.oneSpace = false;
-    movement.unlimitedSpaces = true;
-  }
+  Bishop(Color color, Position position);
 
   void move() override;
   void eat() override;
