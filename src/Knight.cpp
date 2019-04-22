@@ -3,21 +3,22 @@
 #include "Knight.h"
 
 Knight::Knight(Color color, Position position) : Piece('n', color, position) {
-    Movement movement;
+  Movement movement;
 
-    movement.forward = false;
-    movement.backward = false;
-    movement.diagonal = false;
-    movement.left = false;
-    movement.right = false;
-    movement.knight = true;
-    movement.oneSpace = false;
-    movement.unlimitedSpaces = false;
+  movement.forward = false;
+  movement.backward = false;
+  movement.diagonal = false;
+  movement.left = false;
+  movement.right = false;
+  movement.knight = true;
+  movement.oneSpace = false;
+  movement.unlimitedSpaces = false;
 
-    Piece::setMovement(movement);
-  }
-void Piece::eat() {
+  Piece::setMovement(movement);
 }
 
-void Piece::move() {
+void Knight::eat() {
+}
+
+void Knight::move() {
 }

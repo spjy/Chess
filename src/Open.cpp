@@ -1,7 +1,7 @@
 
 #include "Open.h"
 
-Open::Open(Position position) : Piece(' ', Color::NONE, position) {
+Open::Open(Position position) : Piece('X', Color::NONE, position) {
   // Checking for the first move of the pawn since it can go two spaces
   bool moved = false;
   Movement movement;
@@ -18,8 +18,8 @@ Open::Open(Position position) : Piece(' ', Color::NONE, position) {
   Piece::setMovement(movement);
 }
 
-void Piece::eat() {
+void Open::eat() {
 }
 
-void Piece::move() {
+void Open::move() {
 }

@@ -7,10 +7,10 @@
 
 class Open : public Piece {
  public:
-  Open(Position position);
+  explicit Open(Position position);
 
   void move() override;
   void eat() override;
 };
 
-#endif  // INCLUDE_PAWN_H_
+#endif  // INCLUDE_OPEN_H_

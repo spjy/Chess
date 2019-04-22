@@ -19,8 +19,8 @@ Pawn::Pawn(Color color, Position position) : Piece('p', color, position) {
   Piece::setMovement(movement);
 }
 
-void Piece::eat() {
+void Pawn::eat() {
 }
 
-void Piece::move() {
+void Pawn::move() {
 }

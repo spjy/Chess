@@ -1,18 +1,45 @@
 // Copyright 2019 Spencer Young, Johnson Huynh, Sean Tadekawa
 
+#include <iostream>
 #include "Board.h"
 
+void Board::initializePawns(Color color, int row) {
+  for (int i = 0; i < 8; i++) {
+    this->board[row].push_back(new Pawn(color, Position { row, i }));
+  }
+}
+
+void Board::initializeOpenSpots(int row) {
+  for (int i = 0; i < 8; i++) {
+    this->board[row].push_back(new Open(Position { row, i }));
+  }
+}
+
+void Board::initializeCapitals(Color color, int row) {
+  this->board[row].push_back(new Rook(color, Position { row, 0 }));
+  this->board[row].push_back(new Knight(color, Position { row, 1 }));
+  this->board[row].push_back(new Bishop(color, Position { row, 2 }));
+  this->board[row].push_back(new King(color, Position { row, 3 }));
+  this->board[row].push_back(new Queen(color, Position { row, 4 }));
+  this->board[row].push_back(new Bishop(color, Position { row, 5 }));
+  this->board[row].push_back(new Knight(color, Position { row, 6 }));
+  this->board[row].push_back(new Rook(color, Position { row, 7 }));
+}
+
 Board::Board() {
+  std::vector<Piece*> row;
   // [8][8] //columns first, rows second.
   // Reserve capacity for each row
-  board.resize(8);
-
   int i;
 
-  // Reserve capacity for each column
   for (i = 0; i < 8; i++) {
-    board[i].resize(8);
+    this->board.push_back(row);
   }
+
+  // Reserve capacity for each column
+  // for (i = 0; i < 7; i++) {
+  //   this->board[i].resize(8);
+  // }
 
   this->initializeCapitals(Color::WHITE, 0);
   this->initializePawns(Color::WHITE, 1);
@@ -36,45 +63,28 @@ Board::Board() {
   //]
 }
 
-void Board::initializePawns(Color color, int row) {
-  for (int i = 0; i < 8; i++) {
-    Pawn pawn(color, Position { row, i });
-
-    Pawn *ptr = &pawn;
-
-    this->board[row][i] = ptr;
-  }
-}
-
-void Board::initializeOpenSpots(int row) {
-  for (int i = 0; i < 8; i++) {
-    Open open(Position { row, i });
-
-    Open *ptr = &open;
-
-    this->board[row][i] = ptr;
-  }
-}
-
-void Board::initializeCapitals(Color color, int row) {
-  Rook rook(color, Position { row, 0 });
-  Knight knight(color, Position { row, 1 });
-  Bishop bishop(color, Position { row, 2 });
-  King king(color, Position { row, 3 });
-  Queen queen(color, Position { row, 4 });
-  Bishop bishop1(color, Position { row, 5 });
-  Knight knight1(color, Position { row, 6 });
-  Rook rook1(color, Position { row, 7 });
-}
-
-
-
 void Board::printBoard() {
-  for (int i = 0; i < board.size(); i++) {
-    for (int j = 0; i < board[i].size(); j++) {
-      std::cout << board[i][j]->getSymbol() + " ";
-      if (j == board[i].size() - 1) {
-        std::cout << std::endl;
+  // std::cout << this->board[0][1]->getSymbol() << std::endl;
+  // int row = 0;
+  // for (std::vector<Piece*> r : this->board) {
+  //   int col = 0;
+  //   for (Piece* c : this->board[row]) {
+  //     std::cout << c->getSymbol();
+
+  //     if (col == 7) {
+  //       std::cout << std::endl;
+  //     }
+
+  //     col++;
+  //   }
+  //   row++;
+  // }
+
+  for (size_t i = 0; i < this->board.size(); i++) {
+    for (size_t j = 0; j < this->board[i].size(); j++) {
+      std::cout << this->board[i][j]->getSymbol() << ' ';
+      if (j == this->board[i].size() - 1) {
+        std::cout << this->board[i][j]->getSymbol() << std::endl;
       }
     }
   }
@@ -83,10 +93,13 @@ void Board::printBoard() {
 // If movement isn't out off of the board, not if eaten
 
 bool Board::checkIfOffBoard() {
+  return true;
 }
 
 bool Board::checkIfObstructed() {
+  return true;
 }
 
 bool Board::movement() {
+  return true;
 }

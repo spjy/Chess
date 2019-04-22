@@ -14,9 +14,11 @@
 #include "King.h"
 #include "Open.h"
 
+using std::vector;
+
 class Board {
  public:
-  std::vector<std::vector<Piece*> > board;
+  vector<vector<Piece*> > board;
 
   Board();
   void initializePawns(Color color, int row);

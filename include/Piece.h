@@ -22,19 +22,9 @@ class Piece {
   Movement movement; /**< Constraints on how the piece can move */
 
  public:
-  Piece(char symbol, Color color, Position position) :
-    symbol(symbol),
-    color(color),
-    position(position) {
-  }
-
-  void setMovement(Movement movement) {
-    this->movement = movement;
-  }
-
-  char getSymbol() {
-    return this->symbol;
-  }
+  Piece(char symbol, Color color, Position position);
+  void setMovement(Movement movement);
+  char getSymbol();
 
   virtual void move() = 0;
   virtual void eat() = 0;

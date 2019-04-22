@@ -3,18 +3,25 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/include",
-                "C:\\SFML\\include"
+                "${workspaceFolder}\\include",
+                "C:\\SFML-2.5.1\\include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:\\Qt\\Tools\\mingw530_32\\bin\\gcc.exe",
+            "compilerPath": "C:\\mingw32\\bin\\gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "${workspaceRoot}\\include",
+                    "C:\\mingw32\\lib\\gcc\\i686-w64-mingw32\\7.3.0\\include\\c++"
+                ]
+            }
         }
     ],
     "version": 4

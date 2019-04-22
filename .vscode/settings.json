@@ -64,6 +64,8 @@
     "cwctype": "cpp",
     "unordered_map": "cpp",
     "functional": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "optional": "cpp",
+    "string_view": "cpp"
   }
 }
