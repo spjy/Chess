@@ -9,8 +9,8 @@ class Queen : public Piece {
  public:
   Queen(Color color, Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_QUEEN_H_

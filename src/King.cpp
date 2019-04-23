@@ -19,8 +19,8 @@ King::King(Color color, Position position) : Piece('k', color, position) {
   Piece::setMovement(movement);
 }
 
-void King::eat() {
+bool King::eat(Position currentPosition, Position nextPosition) {
 }
 
-void King::move() {
+bool King::move(Position currentPosition, Position nextPosition) {
 }

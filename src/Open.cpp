@@ -3,7 +3,6 @@
 
 Open::Open(Position position) : Piece('X', Color::NONE, position) {
   // Checking for the first move of the pawn since it can go two spaces
-  bool moved = false;
   Movement movement;
 
   movement.forward = false;
@@ -18,8 +17,8 @@ Open::Open(Position position) : Piece('X', Color::NONE, position) {
   Piece::setMovement(movement);
 }
 
-void Open::eat() {
+bool Open::eat(Position currentPosition, Position nextPosition) {
 }
 
-void Open::move() {
+bool Open::move(Position currentPosition, Position nextPosition) {
 }

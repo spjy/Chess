@@ -9,8 +9,8 @@ class King : public Piece {
  public:
   King(Color color, Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_KING_H_

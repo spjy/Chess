@@ -9,8 +9,8 @@ class Rook : public Piece {
  public:
   Rook(Color color, Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_ROOK_H_

@@ -4,7 +4,6 @@
 
 Pawn::Pawn(Color color, Position position) : Piece('p', color, position) {
   // Checking for the first move of the pawn since it can go two spaces
-  bool moved = false;
   Movement movement;
 
   movement.forward = true;
@@ -19,8 +18,58 @@ Pawn::Pawn(Color color, Position position) : Piece('p', color, position) {
   Piece::setMovement(movement);
 }
 
-void Pawn::eat() {
+bool Pawn::eat(Position currentPosition, Position nextPosition) {
+  vector<Position> possibleMoves;
+  // Color color = board[currentPosition.row][currentPosition.row]->ge
+
+  Position position {
+    currentPosition.column + 1,
+    currentPosition.row + 1
+  };
+  // TODO: En Passant  
+  possibleMoves.push_back(position);
+
+  position = {
+    currentPosition.column - 1,
+    currentPosition.row + 1
+  };
+
+  possibleMoves.push_back(position);
+
+
 }
 
-void Pawn::move() {
+bool Pawn::move(Position currentPosition, Position nextPosition) {
+  vector<Position> possibleMoves;
+  Position move;
+
+  if (!this->moved) {
+    Position position {
+      currentPosition.column,
+      currentPosition.row + 2
+    };
+  }
+
+  Position position {
+    currentPosition.column,
+    currentPosition.row + 1
+  };
+  // TODO: En Passant  
+  possibleMoves.push_back(position);
+
+  for (int i = 0; i < possibleMoves.size(); i++) {
+    if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void Pawn::promote(Position currentPosition, Position nextPosition) {
+  char piece;
+  
+  if (nextPosition.row = 7) {
+    cout << "Enter the piece you want to promote this pawn to:" << endl;
+    cin >> piece;
+  }
 }

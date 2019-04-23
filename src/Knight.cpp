@@ -17,8 +17,8 @@ Knight::Knight(Color color, Position position) : Piece('n', color, position) {
   Piece::setMovement(movement);
 }
 
-void Knight::eat() {
+bool Knight::eat(Position currentPosition, Position nextPosition) {
 }
 
-void Knight::move() {
+bool Knight::move(Position currentPosition, Position nextPosition) {
 }

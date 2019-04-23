@@ -9,8 +9,8 @@ class Open : public Piece {
  public:
   explicit Open(Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_OPEN_H_

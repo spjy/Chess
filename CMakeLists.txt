@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.14)
 project(chess)
 
-set(CMAKE_MAKE_PROGRAM "C:/mingw32/bin/make.exe")
-set(CMAKE_CXX_COMPILER "C:/mingw32/bin/g++.exe")
+find_program(CMAKE_MAKE_PROGRAM "C:/mingw32/bin/make.exe")
+find_program(CMAKE_CXX_COMPILER "C:/mingw32/bin/g++.exe")
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH} C:/SFML-2.5.1/lib")
 set(CMAKE_PREFIX_PATH "C:/SFML-2.5.1/lib/cmake/SFML")

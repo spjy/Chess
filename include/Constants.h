@@ -3,6 +3,15 @@
 #ifndef INCLUDE_CONSTANTS_H_
 #define INCLUDE_CONSTANTS_H_
 
+#include <iostream>
+#include <string>
+#include <vector>
+
+using std::cout;
+using std::endl;
+using std::cin;
+using std::vector;
+
 enum class Color {
   WHITE,
   BLACK,
@@ -25,5 +34,7 @@ struct Position {
   int column;
   int row;
 };
+
+int char_to_int(char c);
 
 #endif  // INCLUDE_CONSTANTS_H_

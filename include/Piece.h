@@ -3,8 +3,6 @@
 #ifndef INCLUDE_PIECE_H_
 #define INCLUDE_PIECE_H_
 
-#include <iostream>
-#include <string>
 #include "Constants.h"
 
 /*
@@ -25,9 +23,10 @@ class Piece {
   Piece(char symbol, Color color, Position position);
   void setMovement(Movement movement);
   char getSymbol();
+  Color getColor();
 
-  virtual void move() = 0;
-  virtual void eat() = 0;
+  virtual bool move(Position currentPosition, Position nextPosition) = 0;
+  virtual bool eat(Position currentPosition, Position nextPosition) = 0;
 };
 
 #endif  // INCLUDE_PIECE_H_

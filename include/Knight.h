@@ -9,8 +9,8 @@ class Knight : public Piece {
  public:
   Knight(Color color, Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_KNIGHT_H_

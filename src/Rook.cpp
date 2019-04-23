@@ -17,8 +17,8 @@ Rook::Rook(Color color, Position position) : Piece('r', color, position) {
   Piece::setMovement(movement);
 }
 
-void Rook::eat() {
+bool Rook::eat(Position currentPosition, Position nextPosition) {
 }
 
-void Rook::move() {
+bool Rook::move(Position currentPosition, Position nextPosition) {
 }

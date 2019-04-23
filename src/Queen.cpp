@@ -16,8 +16,8 @@ Queen::Queen(Color color, Position position) : Piece('q', color, position) {
   Piece::setMovement(movement);
 }
 
-void Queen::eat() {
+bool Queen::eat(Position currentPosition, Position nextPosition) {
 }
 
-void Queen::move() {
+bool Queen::move(Position currentPosition, Position nextPosition) {
 }

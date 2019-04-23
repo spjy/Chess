@@ -9,8 +9,8 @@ class Bishop : public Piece {
  public:
   Bishop(Color color, Position position);
 
-  void move() override;
-  void eat() override;
+  bool move(Position currentPosition, Position nextPosition) override;
+  bool eat(Position currentPosition, Position nextPosition) override;
 };
 
 #endif  // INCLUDE_BISHOP_H_

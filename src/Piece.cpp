@@ -15,3 +15,7 @@ void Piece::setMovement(Movement movement) {
 char Piece::getSymbol() {
   return this->symbol;
 }
+
+Color Piece::getColor() {
+  return this->color;
+}

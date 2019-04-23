@@ -16,8 +16,8 @@ Bishop::Bishop(Color color, Position position) : Piece('b', color, position) {
   Piece::setMovement(movement);
 }
 
-void Bishop::eat() {
+bool Bishop::eat(Position currentPosition, Position nextPosition) {
 }
 
-void Bishop::move() {
+bool Bishop::move(Position currentPosition, Position nextPosition) {
 }

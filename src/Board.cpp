@@ -5,25 +5,25 @@
 
 void Board::initializePawns(Color color, int row) {
   for (int i = 0; i < 8; i++) {
-    this->board[row].push_back(new Pawn(color, Position { row, i }));
+    this->board[row].push_back(new Pawn(color, Position { i, row }));
   }
 }
 
 void Board::initializeOpenSpots(int row) {
   for (int i = 0; i < 8; i++) {
-    this->board[row].push_back(new Open(Position { row, i }));
+    this->board[row].push_back(new Open(Position { i, row }));
   }
 }
 
 void Board::initializeCapitals(Color color, int row) {
-  this->board[row].push_back(new Rook(color, Position { row, 0 }));
-  this->board[row].push_back(new Knight(color, Position { row, 1 }));
-  this->board[row].push_back(new Bishop(color, Position { row, 2 }));
-  this->board[row].push_back(new King(color, Position { row, 3 }));
-  this->board[row].push_back(new Queen(color, Position { row, 4 }));
-  this->board[row].push_back(new Bishop(color, Position { row, 5 }));
-  this->board[row].push_back(new Knight(color, Position { row, 6 }));
-  this->board[row].push_back(new Rook(color, Position { row, 7 }));
+  this->board[row].push_back(new Rook(color, Position { 0, row }));
+  this->board[row].push_back(new Knight(color, Position { 1, row }));
+  this->board[row].push_back(new Bishop(color, Position { 2, row }));
+  this->board[row].push_back(new King(color, Position { 3, row }));
+  this->board[row].push_back(new Queen(color, Position { 4, row }));
+  this->board[row].push_back(new Bishop(color, Position { 5, row }));
+  this->board[row].push_back(new Knight(color, Position { 6, row }));
+  this->board[row].push_back(new Rook(color, Position { 7, row }));
 }
 
 Board::Board() {
@@ -64,27 +64,11 @@ Board::Board() {
 }
 
 void Board::printBoard() {
-  // std::cout << this->board[0][1]->getSymbol() << std::endl;
-  // int row = 0;
-  // for (std::vector<Piece*> r : this->board) {
-  //   int col = 0;
-  //   for (Piece* c : this->board[row]) {
-  //     std::cout << c->getSymbol();
-
-  //     if (col == 7) {
-  //       std::cout << std::endl;
-  //     }
-
-  //     col++;
-  //   }
-  //   row++;
-  // }
-
   for (size_t i = 0; i < this->board.size(); i++) {
     for (size_t j = 0; j < this->board[i].size(); j++) {
       std::cout << this->board[i][j]->getSymbol() << ' ';
       if (j == this->board[i].size() - 1) {
-        std::cout << this->board[i][j]->getSymbol() << std::endl;
+        std::cout << std::endl;
       }
     }
   }
@@ -100,6 +84,32 @@ bool Board::checkIfObstructed() {
   return true;
 }
 
-bool Board::movement() {
-  return true;
+bool Board::movement(Position currentPosition, Position nextPosition) {
+  Piece* movingPiece = this->board[nextPosition.row][nextPosition.column];
+
+  if (movingPiece->getColor() == this->turn) { // Move on self's pieces
+    return false;
+  } else if (movingPiece->getColor() == Color::NONE) { // Move on empty piece
+    return movingPiece->move(currentPosition, nextPosition);
+    // convert current position to open, next position to piece that is being moved
+  } else if (movingPiece->getColor() != Color::NONE && movingPiece->getColor() != this->turn) { // Move on opposing piece
+    return movingPiece->eat(currentPosition, nextPosition);
+  }
+  return false;
+}
+
+Color Board::getTurn() {
+  return this->turn;
+}
+
+void Board::setTurn(Color turn) {
+  this->turn = turn;
+}
+
+void Board::changeTurn() {
+  if (this->turn == Color::WHITE) {
+    this->turn = Color::BLACK;
+  } else {
+    this->turn = Color::WHITE;
+  }
 }
