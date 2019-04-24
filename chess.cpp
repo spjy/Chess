@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-  string current, move;
+  char current[2], move[2];
   Position currentPosition, nextPosition;
 
   Board board;
@@ -15,21 +15,31 @@ int main() {
   board.printBoard();
 
   while (true) {
-    std::cout << "Enter the piece you want to move (ex. a2):" << std::endl;
-    std::cin >> current;
+    cout << "Enter the piece you want to move (ex. a2):" << endl;
+    cin >> current;
 
-    current[0] = char_to_int(current[0]);
+    currentPosition = {
+      char_to_int(current[0]), // convert letter to integer
+      static_cast<int>(current[1]) - 49 // convert from char number to integer
+    };
 
-    currentPosition.column = char_to_int(current[0]);
-    currentPosition.row = current[1];
+    cout << "Enter the spot you want to move to (ex. a3):" << endl;
+    cin >> move;
 
-    std::cout << "Enter the spot you want to move to (ex. a3):" << std::endl;
-    std::cin >> move;
+    nextPosition = {
+      char_to_int(move[0]),
+      static_cast<int>(move[1]) - 49
+    };
 
-    nextPosition.column = char_to_int(move[0]);
-    nextPosition.row = move[1];
+    bool moved = board.movement(currentPosition, nextPosition);
 
-    board.changeTurn();
+    if (moved) {
+      cout << "Moved." << endl;
+      board.changeTurn();
+    } else {
+      cout << "Could not move" << endl;
+    }
+    
 
     board.printBoard();
   }

@@ -12,7 +12,7 @@
  */
 
 class Piece {
- private:
+ protected:
   char symbol; /**< The first letter of the piece's name */
   Color color; /**< The color of piece it is. */
   bool eaten = false; /**< Whether the piece has been eaten */

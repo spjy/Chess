@@ -85,16 +85,31 @@ bool Board::checkIfObstructed() {
 }
 
 bool Board::movement(Position currentPosition, Position nextPosition) {
-  Piece* movingPiece = this->board[nextPosition.row][nextPosition.column];
+  if (currentPosition.row > 0 && currentPosition.column > 0 && nextPosition.row < 8 && nextPosition.column < 8) { // If within board constraints
+    Piece* currentPiece = this->board[currentPosition.row][currentPosition.column];
+    Piece* nextPiece = this->board[nextPosition.row][nextPosition.column];
+    
+    if (this->turn == currentPiece->getColor()) { // Check if moving own piece
+      if (nextPiece->getColor() == this->turn) { // Move on self's pieces
+        return false;
+      } else if (nextPiece->getColor() == Color::NONE) { // Move on empty piece
+        bool move = currentPiece->move(currentPosition, nextPosition);
 
-  if (movingPiece->getColor() == this->turn) { // Move on self's pieces
-    return false;
-  } else if (movingPiece->getColor() == Color::NONE) { // Move on empty piece
-    return movingPiece->move(currentPosition, nextPosition);
-    // convert current position to open, next position to piece that is being moved
-  } else if (movingPiece->getColor() != Color::NONE && movingPiece->getColor() != this->turn) { // Move on opposing piece
-    return movingPiece->eat(currentPosition, nextPosition);
+        if (move) { // If move is valid
+          Piece* tempPiece = this->board[nextPosition.row][nextPosition.column];
+          this->board[nextPosition.row][nextPosition.column] = this->board[currentPosition.row][currentPosition.column];
+        
+          this->board[currentPosition.row][currentPosition.column] = tempPiece;
+        }
+
+        return move;
+        // convert current position to open, next position to piece that is being moved
+      } else if (nextPiece->getColor() != Color::NONE && currentPiece->getColor() != this->turn) { // Move on opposing piece
+        return currentPiece->eat(currentPosition, nextPosition);
+      }
+    }
   }
+
   return false;
 }
 
@@ -109,7 +124,9 @@ void Board::setTurn(Color turn) {
 void Board::changeTurn() {
   if (this->turn == Color::WHITE) {
     this->turn = Color::BLACK;
+    cout << "Black to move." << endl;
   } else {
     this->turn = Color::WHITE;
+    cout << "White to move." << endl;
   }
 }

@@ -22,53 +22,99 @@ bool Pawn::eat(Position currentPosition, Position nextPosition) {
   vector<Position> possibleMoves;
   // Color color = board[currentPosition.row][currentPosition.row]->ge
 
-  Position position {
-    currentPosition.column + 1,
-    currentPosition.row + 1
-  };
-  // TODO: En Passant  
-  possibleMoves.push_back(position);
+  // TODO: En Passant
+  if (this->color == Color::WHITE) {
+    cout << "WHITE" << endl;
+    Position position {
+      currentPosition.column + 1,
+      currentPosition.row + 1
+    };
+    possibleMoves.push_back(position);
 
-  position = {
-    currentPosition.column - 1,
-    currentPosition.row + 1
-  };
+    position = {
+      currentPosition.column - 1,
+      currentPosition.row + 1
+    };
 
-  possibleMoves.push_back(position);
+    possibleMoves.push_back(position);
+  } else if (this->color == Color::BLACK) {
+    Position position {
+      currentPosition.column - 1,
+      currentPosition.row - 1
+    };
 
+    possibleMoves.push_back(position);
 
+    position = {
+      currentPosition.column + 1,
+      currentPosition.row - 1
+    };
+
+    possibleMoves.push_back(position);
+  }
+
+  for (size_t i = 0; i < possibleMoves.size(); i++) {
+    cout << possibleMoves[i].column << possibleMoves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
+    if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 bool Pawn::move(Position currentPosition, Position nextPosition) {
   vector<Position> possibleMoves;
   Position move;
 
-  if (!this->moved) {
+  if (this->color == Color::WHITE) {
+    if (!this->moved) {
+      Position position {
+        currentPosition.column,
+        currentPosition.row + 2
+      };
+
+      possibleMoves.push_back(position);
+    }
+
     Position position {
       currentPosition.column,
-      currentPosition.row + 2
+      currentPosition.row + 1
     };
+    // TODO: En Passant  
+    possibleMoves.push_back(position);
+  } else if (this->color == Color::BLACK) {
+    if (!this->moved) {
+      Position position {
+        currentPosition.column,
+        currentPosition.row - 2
+      };
+
+      possibleMoves.push_back(position);
+    }
+
+    Position position {
+      currentPosition.column,
+      currentPosition.row - 1
+    };
+    // TODO: En Passant  
+    possibleMoves.push_back(position);
   }
 
-  Position position {
-    currentPosition.column,
-    currentPosition.row + 1
-  };
-  // TODO: En Passant  
-  possibleMoves.push_back(position);
-
-  for (int i = 0; i < possibleMoves.size(); i++) {
+  for (size_t i = 0; i < possibleMoves.size(); i++) {
+    cout << possibleMoves[i].column << possibleMoves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
     if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
       return true;
     }
   }
+
   return false;
 }
 
 void Pawn::promote(Position currentPosition, Position nextPosition) {
   char piece;
   
-  if (nextPosition.row = 7) {
+  if (nextPosition.row == 7) {
     cout << "Enter the piece you want to promote this pawn to:" << endl;
     cin >> piece;
   }
