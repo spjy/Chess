@@ -52,14 +52,14 @@ Board::Board() {
 
   // How the board looks.
   //[
-  //  [0,1,2,3,4,5,6,7] // 0 black capitals/white touch down
+  //  [A8,B8,C8,D8,E8,F8,G8,H8] // 0 black capitals/white touch down
   //  [0,1,2,3,4,5,6,7] // 1 black pawns
   //  [0,1,2,3,4,5,6,7] // 2 war zone
   //  [0,1,2,3,4,5,6,7] // 3 war zone
   //  [0,1,2,3,4,5,6,7] // 4 war zone
   //  [0,1,2,3,4,5,6,7] // 5 war zone
   //  [0,1,2,3,4,5,6,7] // 6 white pawns
-  //  [0,1,2,3,4,5,6,7] // 7 white capitals/black touch down
+  //  [A1,B1,C1,D1,E1,F1,G1,H1] // 7 white capitals/black touch down
   //]
 }
 
