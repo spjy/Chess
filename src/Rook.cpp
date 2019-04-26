@@ -27,45 +27,21 @@ bool Rook::eat(Position currentPosition, Position nextPosition) {
     }
     possibleMoves.push_back(position);
 
-    position = (
+    position = {
       currentPosition.column -,
       currentPosition.row
-    )
+    }
     possibleMoves.push_back(position);
 
-    position = (
+    position = {
       currentPosition.column,
       currentPosition.row +
-    )
+    }
     possibleMoves.push_back(position);
 
-    position = (
+    position = {
       currentPosition.column,
       currentPosition.row -
-    )
-    possibleMoves.push_back(position);
-  } else if (this->color == Color::BLACK){
-    Position position {
-      currentPosition.column +,
-      currentPosition.row
-    }
-    possibleMoves.push_back(position);
-
-    position = {
-      currentPosition.column -,
-      currentPosition.row 
-    }
-    possibleMoves.push_back(position);
-
-    position = {
-      currentPosition.column,
-      currentPosition.row +
-    }
-    possibleMoves.push_back(position);
-
-    position = {
-      currentPosition.column,
-      currentPosition.row - 
     }
     possibleMoves.push_back(position);
   }
@@ -79,5 +55,5 @@ for (size_t i = 0; i < possibleMoves.size(); i++) {
 }
 
 bool Rook::move(Position currentPosition, Position nextPosition) {
-  
+
 }
