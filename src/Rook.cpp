@@ -20,7 +20,6 @@ Rook::Rook(Color color, Position position) : Piece('r', color, position) {
 bool Rook::eat(Position currentPosition, Position nextPosition) {
   vector<Position> possibleMoves;
 
-  if (this->color == Color::WHITE){
     Position position {
       currentPosition.column +,
       currentPosition.row
@@ -44,7 +43,7 @@ bool Rook::eat(Position currentPosition, Position nextPosition) {
       currentPosition.row -
     }
     possibleMoves.push_back(position);
-  }
+  
 for (size_t i = 0; i < possibleMoves.size(); i++) {
     cout << possibleMoves[i].column << possibleMoves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
     if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
