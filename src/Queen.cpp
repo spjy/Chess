@@ -15,7 +15,7 @@ Queen::Queen(Color color, Position position) : Piece('q', color, position) {
 
   Piece::setMovement(movement);
 }
-
+// Combine Rook and Bishop 
 bool Queen::eat(Position currentPosition, Position nextPosition) {
 }
 
