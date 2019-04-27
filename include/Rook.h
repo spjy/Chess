@@ -14,3 +14,15 @@ class Rook : public Piece {
 };
 
 #endif  // INCLUDE_ROOK_H_
+
+// Algorithm for rook
+// Check if Rook is going row or column wise,
+// -> can be done by checking if row/col is the same
+
+// Get dist. <-> curr. pos. and target pos.
+// Loop over row/col depending on movement of Rook.
+// Loop from lowest value pos. up to other pos.
+// ^ -> lowest value pos. could be either curr. or target pos.
+// Do this loop within the move/eat functions. *********
+// Check if there is a none open piece in it's way. 
+
