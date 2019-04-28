@@ -2,22 +2,12 @@
 
 #include "Queen.h"
 
-Queen::Queen(Color color, Position position) : Piece('q', color, position) {
-  Movement movement;
+Queen::Queen(Color color, Position position) : Piece('q', color, position, true, true) {
 
-  movement.forward = true;
-  movement.backward = true;
-  movement.diagonal = true;
-  movement.left = true;
-  movement.right = true;
-  movement.oneSpace = false;
-  movement.unlimitedSpaces = true;
-
-  Piece::setMovement(movement);
 }
 // Combine Rook and Bishop 
-bool Queen::eat(Position currentPosition, Position nextPosition) {
+bool Queen::eat(const Position &currentPosition, const Position &nextPosition) {
 }
 
-bool Queen::move(Position currentPosition, Position nextPosition) {
+bool Queen::move(const Position &currentPosition, const Position &nextPosition) {
 }

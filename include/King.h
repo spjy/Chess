@@ -9,8 +9,8 @@ class King : public Piece {
  public:
   King(Color color, Position position);
 
-  bool move(Position currentPosition, Position nextPosition) override;
-  bool eat(Position currentPosition, Position nextPosition) override;
+  bool move(const Position &currentPosition, const Position &nextPosition) override;
+  bool eat(const Position &currentPosition, const Position &nextPosition) override;
 };
 
 #endif  // INCLUDE_KING_H_

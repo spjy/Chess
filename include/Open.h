@@ -9,8 +9,8 @@ class Open : public Piece {
  public:
   explicit Open(Position position);
 
-  bool move(Position currentPosition, Position nextPosition) override;
-  bool eat(Position currentPosition, Position nextPosition) override;
+  bool move(const Position &currentPosition, const Position &nextPosition) override;
+  bool eat(const Position &currentPosition, const Position &nextPosition) override;
 };
 
 #endif  // INCLUDE_OPEN_H_

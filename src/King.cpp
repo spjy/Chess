@@ -4,7 +4,7 @@
 // King is special, it can't move to places where 
 // it could be eaten.
 
-King::King(Color color, Position position) : Piece('k', color, position) {
+King::King(Color color, Position position) : Piece('k', color, position, false, false) {
   Movement movement;
 
   movement.forward = true;
@@ -19,8 +19,8 @@ King::King(Color color, Position position) : Piece('k', color, position) {
   Piece::setMovement(movement);
 }
 
-bool King::eat(Position currentPosition, Position nextPosition) {
+bool King::eat(const Position &currentPosition, const Position &nextPosition) {
 }
 
-bool King::move(Position currentPosition, Position nextPosition) {
+bool King::move(const Position &currentPosition, const Position &nextPosition) {
 }

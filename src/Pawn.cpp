@@ -2,23 +2,11 @@
 
 #include "Pawn.h"
 
-Pawn::Pawn(Color color, Position position) : Piece('p', color, position) {
-  // Checking for the first move of the pawn since it can go two spaces
-  Movement movement;
-
-  movement.forward = true;
-  movement.backward = false;
-  movement.diagonal = true;
-  movement.left = false;
-  movement.right = false;
-  movement.knight = false;
-  movement.oneSpace = true;
-  movement.unlimitedSpaces = false;
-
-  Piece::setMovement(movement);
+Pawn::Pawn(Color color, Position position)
+  : Piece('p', color, position, false, false) {
 }
 
-bool Pawn::eat(Position currentPosition, Position nextPosition) {
+bool Pawn::eat(const Position &currentPosition, const Position &nextPosition) {
   vector<Position> possibleMoves;
   // Color color = board[currentPosition.row][currentPosition.row]->ge
 
@@ -54,8 +42,10 @@ bool Pawn::eat(Position currentPosition, Position nextPosition) {
   }
 
   for (size_t i = 0; i < possibleMoves.size(); i++) {
-    cout << possibleMoves[i].column << possibleMoves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
+    cout << possibleMoves[i].column << possibleMoves[i].row
+      << " | " << nextPosition.column << nextPosition.row << endl;
+    if (possibleMoves[i].column == nextPosition.column
+      && possibleMoves[i].row == nextPosition.row) {
       return true;
     }
   }
@@ -63,7 +53,7 @@ bool Pawn::eat(Position currentPosition, Position nextPosition) {
   return false;
 }
 
-bool Pawn::move(Position currentPosition, Position nextPosition) {
+bool Pawn::move(const Position &currentPosition, const Position &nextPosition) {
   vector<Position> possibleMoves;
   Position move;
 
@@ -81,7 +71,7 @@ bool Pawn::move(Position currentPosition, Position nextPosition) {
       currentPosition.column,
       currentPosition.row + 1
     };
-    // TODO: En Passant  
+    // TODO: En Passant
     possibleMoves.push_back(position);
   } else if (this->color == Color::BLACK) {
     if (!this->moved) {
@@ -97,7 +87,7 @@ bool Pawn::move(Position currentPosition, Position nextPosition) {
       currentPosition.column,
       currentPosition.row - 1
     };
-    // TODO: En Passant  
+    // TODO: En Passant
     possibleMoves.push_back(position);
   }
 
@@ -111,7 +101,7 @@ bool Pawn::move(Position currentPosition, Position nextPosition) {
   return false;
 }
 
-void Pawn::promote(Position currentPosition, Position nextPosition) {
+void Pawn::promote(const Position &currentPosition, const Position &nextPosition) {
   char piece;
   
   if (nextPosition.row == 7) {

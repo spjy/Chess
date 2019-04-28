@@ -2,22 +2,11 @@
 
 #include "Bishop.h"
 
-Bishop::Bishop(Color color, Position position) : Piece('b', color, position) {
-  Movement movement;
-  movement.forward = false;
-  movement.backward = false;
-  movement.diagonal = true;
-  movement.left = false;
-  movement.right = false;
-  movement.knight = false;
-  movement.oneSpace = false;
-  movement.unlimitedSpaces = true;
-
-  Piece::setMovement(movement);
+Bishop::Bishop(Color color, Position position) : Piece('b', color, position, false, true) {
 }
 
-bool Bishop::eat(Position currentPosition, Position nextPosition) {
+bool Bishop::eat(const Position &currentPosition, const Position &nextPosition) {
 }
 
-bool Bishop::move(Position currentPosition, Position nextPosition) {
+bool Bishop::move(const Position &currentPosition, const Position &nextPosition) {
 }

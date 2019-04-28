@@ -9,8 +9,8 @@ class Rook : public Piece {
  public:
   Rook(Color color, Position position);
 
-  bool move(Position currentPosition, Position nextPosition) override;
-  bool eat(Position currentPosition, Position nextPosition) override;
+  bool move(const Position &currentPosition, const Position &nextPosition) override;
+  bool eat(const Position &currentPosition, const Position &nextPosition) override;
 };
 
 #endif  // INCLUDE_ROOK_H_

@@ -2,7 +2,7 @@
 
 #include "Knight.h"
 
-Knight::Knight(Color color, Position position) : Piece('n', color, position) {
+Knight::Knight(Color color, Position position) : Piece('n', color, position, false, false) {
   Movement movement;
 
   movement.forward = false;
@@ -17,8 +17,8 @@ Knight::Knight(Color color, Position position) : Piece('n', color, position) {
   Piece::setMovement(movement);
 }
 
-bool Knight::eat(Position currentPosition, Position nextPosition) {
+bool Knight::eat(const Position &currentPosition, const Position &nextPosition) {
 }
 
-bool Knight::move(Position currentPosition, Position nextPosition) {
+bool Knight::move(const Position &currentPosition, const Position &nextPosition) {
 }

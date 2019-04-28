@@ -19,8 +19,8 @@ int main() {
     cin >> current;
 
     currentPosition = {
-      char_to_int(current[0]), // convert letter to integer
-      static_cast<int>(current[1]) - 49 // convert from char number to integer
+      char_to_int(current[0]),  // convert letter to integer
+      static_cast<int>(current[1]) - 49  // convert from char number to integer
     };
 
     cout << "Enter the spot you want to move to (ex. a3):" << endl;
@@ -35,11 +35,10 @@ int main() {
 
     if (moved) {
       cout << "Moved." << endl;
-      board.changeTurn();
+      // board.changeTurn();
     } else {
       cout << "Could not move" << endl;
     }
-    
 
     board.printBoard();
   }

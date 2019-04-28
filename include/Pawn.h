@@ -11,9 +11,9 @@ class Pawn : public Piece {
  public:
   Pawn(Color color, Position position);
 
-  bool move(Position currentPosition, Position nextPosition) override;
-  bool eat(Position currentPosition, Position nextPosition) override;
-  void promote(Position currentPosition, Position nextPosition);
+  bool move(const Position &currentPosition, const Position &nextPosition) override;
+  bool eat(const Position &currentPosition, const Position &nextPosition) override;
+  void promote(const Position &currentPosition, const Position &nextPosition);
 };
 
 #endif  // INCLUDE_PAWN_H_

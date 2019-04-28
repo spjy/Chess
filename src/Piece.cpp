@@ -2,10 +2,16 @@
 
 #include "Piece.h"
 
-Piece::Piece(char symbol, Color color, Position position) {
+Piece::Piece(char symbol,
+  Color color,
+  Position position,
+  bool unlimitedStraight,
+  bool unlimitedDiagonal) {
   this->symbol = symbol;
   this->color = color;
   this->position = position;
+  this->unlimitedStraight = unlimitedStraight;
+  this->unlimitedDiagonal = unlimitedDiagonal;
 }
 
 void Piece::setMovement(Movement movement) {
@@ -18,4 +24,12 @@ char Piece::getSymbol() {
 
 Color Piece::getColor() {
   return this->color;
+}
+
+bool Piece::getUnlimitedStraight() {
+  return this->unlimitedStraight;
+}
+
+bool Piece::getUnlimitedDiagonal() {
+  return this->unlimitedDiagonal;
 }

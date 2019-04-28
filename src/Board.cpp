@@ -1,6 +1,7 @@
 // Copyright 2019 Spencer Young, Johnson Huynh, Sean Tadekawa
 
 #include <iostream>
+#include <cmath>
 #include "Board.h"
 
 void Board::initializePawns(Color color, int row) {
@@ -52,14 +53,14 @@ Board::Board() {
 
   // How the board looks.
   //[
-  //  [A8,B8,C8,D8,E8,F8,G8,H8] // 0 black capitals/white touch down
+  //  [A1,B8,C8,D8,E8,F8,G8,H8] // 0 black capitals/white touch down
   //  [0,1,2,3,4,5,6,7] // 1 black pawns
   //  [0,1,2,3,4,5,6,7] // 2 war zone
   //  [0,1,2,3,4,5,6,7] // 3 war zone
   //  [0,1,2,3,4,5,6,7] // 4 war zone
   //  [0,1,2,3,4,5,6,7] // 5 war zone
   //  [0,1,2,3,4,5,6,7] // 6 white pawns
-  //  [A1,B1,C1,D1,E1,F1,G1,H1] // 7 white capitals/black touch down
+  //  [A8,B1,C1,D1,E1,F1,G1,H1] // 7 white capitals/black touch down
   //]
 }
 
@@ -80,32 +81,143 @@ bool Board::checkIfOffBoard() {
   return true;
 }
 
-bool Board::checkIfObstructed() {
+bool Board::unobstructedStraight(const Position &currentPosition, const Position &nextPosition) {
+  // Movement will be column-wise
+  if (currentPosition.row == nextPosition.row) {  // a1 a3
+    // Compare which column is the lower value
+    // to check for direction of travel for the loop
+    int distance = static_cast<int>(
+      abs(currentPosition.column - nextPosition.column));
+
+    // Movement will be to the right
+    if (currentPosition.column < nextPosition.column) {
+      // Check if the pieces in between are of Color::NONE, if so not obstructed
+      for (size_t i = currentPosition.column + 1; i < distance - 1; i++) {
+        if (this->board[currentPosition.row][i]->getColor() != Color::NONE) {
+          return false;
+        }
+      }
+    } else if (currentPosition.column
+      > nextPosition.column) {  // Movement will be to the left
+      for (size_t i = nextPosition.column + 1; i < distance - 1; i++) {
+        if (this->board[currentPosition.row][i]->getColor() != Color::NONE) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  // Check if the rook and the target piece is in the same column
+  } else if (currentPosition.column
+    == nextPosition.column) {  // Movement will be row-wise
+    // Compare which column is the lower value
+    // to check for direction of travel for the loop
+    int distance = static_cast<int>(
+      abs(currentPosition.row - nextPosition.row));
+
+    // Movement will be to the right
+    if (currentPosition.row < nextPosition.row) {
+      // Check if the pieces in between are of Color::NONE, if so not obstructed
+      for (size_t i = currentPosition.row + 1; i < distance - 1; i++) {
+        // -> accesses the function
+        if (this->board[i][currentPosition.column]->getColor() != Color::NONE) {
+          return false;
+        }
+      }
+    } else if (currentPosition.row
+      > nextPosition.row) {  // Movement will be to the left
+      for (size_t i = nextPosition.row + 1; i < distance - 1; i++) {
+        if (this->board[i][currentPosition.column]->getColor() != Color::NONE) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+bool Board::unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition) {
+  // If diagonal movement
+  if (currentPosition.row != nextPosition.row 
+    && currentPosition.column != nextPosition.row) {
+      if (currentPosition.column < nextPosition.column) {
+
+      } else if (currentPosition.column
+        > nextPosition.column) {  // Movement will be to the left
+
+      }
+  }
+
   return true;
 }
 
-bool Board::movement(Position currentPosition, Position nextPosition) {
-  if (currentPosition.row > 0 && currentPosition.column > 0 && nextPosition.row < 8 && nextPosition.column < 8) { // If within board constraints
-    Piece* currentPiece = this->board[currentPosition.row][currentPosition.column];
+bool Board::movement(const Position &currentPosition, const Position &nextPosition) {
+  // If within board constraints
+  if (currentPosition.row >= 0 && currentPosition.row < 8
+    && currentPosition.column >= 0 && currentPosition.column < 8
+    && nextPosition.row >= 0 && nextPosition.row < 8
+    && nextPosition.column >= 0 && nextPosition.column < 8) {
+    Piece* currentPiece
+      = this->board[currentPosition.row][currentPosition.column];
     Piece* nextPiece = this->board[nextPosition.row][nextPosition.column];
-    
-    if (this->turn == currentPiece->getColor()) { // Check if moving own piece
-      if (nextPiece->getColor() == this->turn) { // Move on self's pieces
+
+    // Check if there are any obstructions between spaces for straight movements
+    if (currentPiece->getUnlimitedStraight()) {
+      bool unobstructed = this->unobstructedStraight(currentPosition, nextPosition);
+
+      // If not unobstructed, block rest of code
+      if (!unobstructed) {
         return false;
-      } else if (nextPiece->getColor() == Color::NONE) { // Move on empty piece
+      }
+    }
+
+    // Check if there are any obstructions between spaces for diagonal movements
+    if (currentPiece->getUnlimitedDiagonal()) {
+      bool unobstructed = this->unobstructedDiagonal(currentPosition, nextPosition);
+
+      // If not unobstructed, block rest of code
+      if (!unobstructed) {
+        return false;
+      }
+    }
+
+    // Check for moving, eating or invalid move.
+    if (this->turn == currentPiece->getColor()) {  // Check if moving own piece
+      if (nextPiece->getColor() == this->turn) {  // Move on self's pieces
+        return false;
+      } else if (nextPiece->getColor() == Color::NONE) {  // Move on empty piece
         bool move = currentPiece->move(currentPosition, nextPosition);
 
-        if (move) { // If move is valid
+        if (move) {  // If move is valid
           Piece* tempPiece = this->board[nextPosition.row][nextPosition.column];
-          this->board[nextPosition.row][nextPosition.column] = this->board[currentPosition.row][currentPosition.column];
-        
+          this->board[nextPosition.row][nextPosition.column]
+            = this->board[currentPosition.row][currentPosition.column];
+
           this->board[currentPosition.row][currentPosition.column] = tempPiece;
         }
 
         return move;
-        // convert current position to open, next position to piece that is being moved
-      } else if (nextPiece->getColor() != Color::NONE && currentPiece->getColor() != this->turn) { // Move on opposing piece
-        return currentPiece->eat(currentPosition, nextPosition);
+        // convert current position to open,
+        // next position to piece that is being moved
+      } else if (nextPiece->getColor() != Color::NONE
+        && nextPiece->getColor() != this->turn) {  // Move on opposing piece
+        bool eat = currentPiece->eat(currentPosition, nextPosition);
+
+        if (eat) {
+          this->board[nextPosition.row][nextPosition.column]
+            = this->board[currentPosition.row][currentPosition.column];
+
+          this->board[currentPosition.row][currentPosition.column]
+            = new Open(Position {
+              currentPosition.row,
+              currentPosition.column
+            });
+        }
+
+        return eat;
       }
     }
   }

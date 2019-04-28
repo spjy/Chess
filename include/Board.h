@@ -3,6 +3,7 @@
 #ifndef INCLUDE_BOARD_H_
 #define INCLUDE_BOARD_H_
 
+#include <vector>
 #include "Constants.h"
 #include "Piece.h"
 #include "Pawn.h"
@@ -27,8 +28,9 @@ class Board {
   void printBoard();
 
   bool checkIfOffBoard();
-  bool checkIfObstructed();
-  bool movement(Position currentPosition, Position nextPosition);
+  bool unobstructedStraight(const Position &currentPosition, const Position &nextPosition);
+  bool unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition);
+  bool movement(const Position &currentPosition, const Position &nextPosition);
 
   Color getTurn();
 
