@@ -143,11 +143,33 @@ bool Board::unobstructedDiagonal(const Position &currentPosition, const Position
   // If diagonal movement
   if (currentPosition.row != nextPosition.row 
     && currentPosition.column != nextPosition.row) {
-      if (currentPosition.column < nextPosition.column) {
+      int distance = static_cast<int>(
+        abs(currentPosition.row - nextPosition.row));
 
-      } else if (currentPosition.column
-        > nextPosition.column) {  // Movement will be to the left
-
+      if (currentPosition.column < nextPosition.column && currentPosition.row < nextPosition.row) { // upper right
+        for (size_t i = currentPosition.column + 1; i < distance - 1; i++) {
+          if (this->board[i][nextPosition.column + 1]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      } else if (currentPosition.column > nextPosition.column && currentPosition.row > nextPosition.row) {  // lower left
+        for (size_t i = currentPosition.column + 1; i < distance - 1; i++) {
+          if (this->board[i][nextPosition.column + 1]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      } else if (currentPosition.column > nextPosition.column && currentPosition.row < nextPosition.row) {  // upper left
+        for (size_t i = currentPosition.column + 1; i < distance - 1; i++) {
+          if (this->board[i][nextPosition.column + 1]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      } else if (currentPosition.column < nextPosition.column && currentPosition.row > nextPosition.row) {  // lower right
+        for (size_t i = currentPosition.column + 1; i < distance - 1; i++) {
+          if (this->board[i][nextPosition.column + 1]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
       }
   }
 
@@ -165,8 +187,11 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
     Piece* nextPiece = this->board[nextPosition.row][nextPosition.column];
 
     // Check if there are any obstructions between spaces for straight movements
-    if (currentPiece->getUnlimitedStraight()) {
-      bool unobstructed = this->unobstructedStraight(currentPosition, nextPosition);
+    if (currentPiece->getUnlimitedStraight()
+      && (currentPosition.row == nextPosition.row
+      || currentPosition.column == nextPosition.column)) {
+      bool unobstructed
+        = this->unobstructedStraight(currentPosition, nextPosition);
 
       // If not unobstructed, block rest of code
       if (!unobstructed) {
@@ -175,8 +200,12 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
     }
 
     // Check if there are any obstructions between spaces for diagonal movements
-    if (currentPiece->getUnlimitedDiagonal()) {
-      bool unobstructed = this->unobstructedDiagonal(currentPosition, nextPosition);
+    if (currentPiece->getUnlimitedDiagonal()
+      && (currentPosition.row != nextPosition.row
+      && currentPosition.column != nextPosition.column)
+      ) {
+      bool unobstructed
+        = this->unobstructedDiagonal(currentPosition, nextPosition);
 
       // If not unobstructed, block rest of code
       if (!unobstructed) {
