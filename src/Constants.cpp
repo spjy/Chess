@@ -12,3 +12,7 @@ int char_to_int(char c) {
   else if (c == 'g') return 6;
   else if (c == 'h') return 7;
 }
+
+bool operator == (Position const &position, Position const &position2) {
+  return (position.row == position2.row && position.column == position2.column);
+}

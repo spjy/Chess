@@ -9,8 +9,8 @@ class Queen : public Piece {
  public:
   Queen(Color color, Position position);
 
-  bool move(const Position &currentPosition, const Position &nextPosition) override;
-  bool eat(const Position &currentPosition, const Position &nextPosition) override;
+  bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
+  bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
 };
 
 #endif  // INCLUDE_QUEEN_H_

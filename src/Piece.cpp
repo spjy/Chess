@@ -26,10 +26,20 @@ Color Piece::getColor() {
   return this->color;
 }
 
-bool Piece::getUnlimitedStraight() {
+bool Piece::hasUnlimitedStraight() {
   return this->unlimitedStraight;
 }
 
-bool Piece::getUnlimitedDiagonal() {
+bool Piece::hasUnlimitedDiagonal() {
   return this->unlimitedDiagonal;
+}
+
+char Piece::getColorSymbol() {
+  if (this->color == Color::BLACK) {
+    return 'B';
+  } else if (this->color == Color::WHITE) {
+    return 'W';
+  } else if (this->color == Color::NONE) {
+    return ' ';
+  }
 }

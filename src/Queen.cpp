@@ -6,8 +6,10 @@ Queen::Queen(Color color, Position position) : Piece('q', color, position, true,
 
 }
 // Combine Rook and Bishop 
-bool Queen::eat(const Position &currentPosition, const Position &nextPosition) {
+bool Queen::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+  return true;
 }
 
-bool Queen::move(const Position &currentPosition, const Position &nextPosition) {
+bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+  return true;
 }

@@ -5,8 +5,10 @@
 Bishop::Bishop(Color color, Position position) : Piece('b', color, position, false, true) {
 }
 
-bool Bishop::eat(const Position &currentPosition, const Position &nextPosition) {
+bool Bishop::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+  
 }
 
-bool Bishop::move(const Position &currentPosition, const Position &nextPosition) {
+bool Bishop::move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+  return true;
 }

@@ -20,6 +20,7 @@ class Piece {
   bool unlimitedDiagonal;
   Position position; /**< The piece's current position */
   Movement movement; /**< Constraints on how the piece can move */
+  vector<Position> possibleMoves;
 
  public:
   Piece(
@@ -30,12 +31,14 @@ class Piece {
     bool unlimitedDiagonal);
   void setMovement(Movement movement);
   char getSymbol();
-  bool getUnlimitedStraight();
-  bool getUnlimitedDiagonal();
+  bool hasUnlimitedStraight();
+  bool hasUnlimitedDiagonal();
   Color getColor();
+  char getColorSymbol();
 
-  virtual bool move(const Position &currentPosition, const Position &nextPosition) = 0;
-  virtual bool eat(const Position &currentPosition, const Position &nextPosition) = 0;
+  void getPossibleMovesStraight(vector<vector<Piece*> > &board, int currentNumber, bool increment);
+  virtual bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
+  virtual bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
 };
 
 #endif  // INCLUDE_PIECE_H_

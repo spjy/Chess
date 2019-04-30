@@ -38,4 +38,6 @@ struct Position {
 
 int char_to_int(char c);
 
+bool operator == (Position const &position, Position const &position2);
+
 #endif  // INCLUDE_CONSTANTS_H_
