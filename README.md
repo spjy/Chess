@@ -25,3 +25,39 @@ make
 ## Gotchas
 
 Make sure you have compatible versions of SFML and MinGW. They must match exactly.
+
+# Cool Tools Used
+
+* CMake
+* Git
+* 
+
+# Features Implemented
+
+* Movement constraints on all pieces
+* Board user interface through text
+* Turn based moves with another person (black and white sides)
+
+# Challenges
+
+* Stale, stalemate, checkmate checking
+  * It was more complicated than we thought. There was much more logic and info we needed to store to implement the checking correctly.
+* Implementing pieces that had unlimited moves
+
+# Classes 
+
+* Pieces
+  * Parent class of Pawn, Rook, Knight, Bishop, Queen, King
+  * Stores the piece color, symbol
+  * Calculates the possible eat and move positions
+* Board
+  * Initializes the pieces on the board
+  * Prints the board
+  * Handles movement checking
+  * Handles turn
+  
+# OOP Concepts
+  * Inheritance (between pieces)
+  * Polymorphism (
+  * Abstraction (public and private)
+
