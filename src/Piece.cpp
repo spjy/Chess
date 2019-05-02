@@ -4,12 +4,10 @@
 
 Piece::Piece(char symbol,
   Color color,
-  Position position,
   bool unlimitedStraight,
   bool unlimitedDiagonal) {
   this->symbol = symbol;
   this->color = color;
-  this->position = position;
   this->unlimitedStraight = unlimitedStraight;
   this->unlimitedDiagonal = unlimitedDiagonal;
 }
@@ -39,7 +37,18 @@ char Piece::getColorSymbol() {
     return 'B';
   } else if (this->color == Color::WHITE) {
     return 'W';
-  } else if (this->color == Color::NONE) {
-    return ' ';
   }
+
+  return ' ';
+}
+
+void Piece::setPossibleMoves(vector<vector<Piece*> > &board, const Position &position) {
+  if (position.row >= 0 && position.row < 8
+    && position.column >= 0 && position.column < 8) {
+      this->possibleMoves.push_back(position);
+  }
+}
+
+void Piece::clearPossibleMoves() {
+  this->possibleMoves.clear();
 }

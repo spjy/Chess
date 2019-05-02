@@ -18,7 +18,6 @@ class Piece {
   bool eaten = false; /**< Whether the piece has been eaten */
   bool unlimitedStraight;
   bool unlimitedDiagonal;
-  Position position; /**< The piece's current position */
   Movement movement; /**< Constraints on how the piece can move */
   vector<Position> possibleMoves;
 
@@ -26,7 +25,6 @@ class Piece {
   Piece(
     char symbol,
     Color color,
-    Position position,
     bool unlimitedStraight,
     bool unlimitedDiagonal);
   void setMovement(Movement movement);
@@ -35,8 +33,9 @@ class Piece {
   bool hasUnlimitedDiagonal();
   Color getColor();
   char getColorSymbol();
+  void clearPossibleMoves();
 
-  void getPossibleMovesStraight(vector<vector<Piece*> > &board, int currentNumber, bool increment);
+  void setPossibleMoves(vector<vector<Piece*> > &board, const Position &position);
   virtual bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
   virtual bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
 };

@@ -7,41 +7,34 @@
 
 void Board::initializePawns(Color color, int row) {
   for (int i = 0; i < 8; i++) {
-    this->board[row].push_back(new Pawn(color, Position { i, row }));
+    this->board[row].push_back(new Pawn(color));
   }
 }
 
 void Board::initializeOpenSpots(int row) {
   for (int i = 0; i < 8; i++) {
-    this->board[row].push_back(new Open(Position { i, row }));
+    this->board[row].push_back(new Open());
   }
 }
 
 void Board::initializeCapitals(Color color, int row) {
-  this->board[row].push_back(new Rook(color, Position { 0, row }));
-  this->board[row].push_back(new Knight(color, Position { 1, row }));
-  this->board[row].push_back(new Bishop(color, Position { 2, row }));
-  this->board[row].push_back(new King(color, Position { 3, row }));
-  this->board[row].push_back(new Queen(color, Position { 4, row }));
-  this->board[row].push_back(new Bishop(color, Position { 5, row }));
-  this->board[row].push_back(new Knight(color, Position { 6, row }));
-  this->board[row].push_back(new Rook(color, Position { 7, row }));
+  this->board[row].push_back(new Rook(color));
+  this->board[row].push_back(new Knight(color));
+  this->board[row].push_back(new Bishop(color));
+  this->board[row].push_back(new King(color));
+  this->board[row].push_back(new Queen(color));
+  this->board[row].push_back(new Bishop(color));
+  this->board[row].push_back(new Knight(color));
+  this->board[row].push_back(new Rook(color));
 }
 
 Board::Board() {
   std::vector<Piece*> row;
-  // [8][8] //columns first, rows second.
-  // Reserve capacity for each row
   int i;
 
   for (i = 0; i < 8; i++) {
     this->board.push_back(row);
   }
-
-  // Reserve capacity for each column
-  // for (i = 0; i < 7; i++) {
-  //   this->board[i].resize(8);
-  // }
 
   this->initializeCapitals(Color::WHITE, 0);
   this->initializePawns(Color::WHITE, 1);
@@ -54,14 +47,14 @@ Board::Board() {
 
   // How the board looks.
   //[
-  //  [A1,B8,C8,D8,E8,F8,G8,H8] // 0 black capitals/white touch down
+  //  [A8,B8,C8,D8,E8,F8,G8,H8] // 0 black capitals/white touch down
   //  [0,1,2,3,4,5,6,7] // 1 black pawns
   //  [0,1,2,3,4,5,6,7] // 2 war zone
   //  [0,1,2,3,4,5,6,7] // 3 war zone
   //  [0,1,2,3,4,5,6,7] // 4 war zone
   //  [0,1,2,3,4,5,6,7] // 5 war zone
   //  [0,1,2,3,4,5,6,7] // 6 white pawns
-  //  [A8,B1,C1,D1,E1,F1,G1,H1] // 7 white capitals/black touch down
+  //  [A1,B1,C1,D1,E1,F1,G1,H1] // 7 white capitals/black touch down
   //]
 }
 
@@ -202,51 +195,54 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
     && nextPosition.column >= 0 && nextPosition.column < 8) {
     Piece* currentPiece
       = this->board[currentPosition.row][currentPosition.column];
+
+    this->board[currentPosition.row][currentPosition.column]->clearPossibleMoves();
+    
     Piece* nextPiece = this->board[nextPosition.row][nextPosition.column];
 
-    // Check if there are any obstructions between spaces for straight movements
-    if (currentPiece->hasUnlimitedStraight() && !currentPiece->hasUnlimitedDiagonal()) {
-      bool unobstructed
-        = this->unobstructedStraight(currentPosition, nextPosition);
+    // // Check if there are any obstructions between spaces for straight movements
+    // if (currentPiece->hasUnlimitedStraight() && !currentPiece->hasUnlimitedDiagonal()) {
+    //   bool unobstructed
+    //     = this->unobstructedStraight(currentPosition, nextPosition);
 
-      // If not unobstructed, block rest of code
-      if (!unobstructed) {
-        return false;
-      }
-    }
+    //   // If not unobstructed, block rest of code
+    //   if (!unobstructed) {
+    //     return false;
+    //   }
+    // }
 
-    // Check if there are any obstructions between spaces for diagonal movements
-    if (currentPiece->hasUnlimitedDiagonal() && !currentPiece->hasUnlimitedStraight()) {
-      bool unobstructed
-        = this->unobstructedDiagonal(currentPosition, nextPosition);
+    // // Check if there are any obstructions between spaces for diagonal movements
+    // if (currentPiece->hasUnlimitedDiagonal() && !currentPiece->hasUnlimitedStraight()) {
+    //   bool unobstructed
+    //     = this->unobstructedDiagonal(currentPosition, nextPosition);
 
-      // If not unobstructed, block rest of code
-      if (!unobstructed) {
-        return false;
-      }
-    }
+    //   // If not unobstructed, block rest of code
+    //   if (!unobstructed) {
+    //     return false;
+    //   }
+    // }
 
-    // Queen
-    if (currentPiece->hasUnlimitedStraight() && currentPiece->hasUnlimitedDiagonal()) {
-      if ((currentPosition.row == nextPosition.row) || (currentPosition.column == nextPosition.column)) {
-        bool unobstructed
-          = this->unobstructedStraight(currentPosition, nextPosition);
+    // // Queen
+    // if (currentPiece->hasUnlimitedStraight() && currentPiece->hasUnlimitedDiagonal()) {
+    //   if ((currentPosition.row == nextPosition.row) || (currentPosition.column == nextPosition.column)) {
+    //     bool unobstructed
+    //       = this->unobstructedStraight(currentPosition, nextPosition);
 
-        // If not unobstructed, block rest of code
-        if (!unobstructed) {
-          return false;
-        }
-      } else if ((currentPosition.row != nextPosition.row) 
-        && (currentPosition.column != nextPosition.row)) {
-        bool unobstructed
-            = this->unobstructedDiagonal(currentPosition, nextPosition);
+    //     // If not unobstructed, block rest of code
+    //     if (!unobstructed) {
+    //       return false;
+    //     }
+    //   } else if ((currentPosition.row != nextPosition.row) 
+    //     && (currentPosition.column != nextPosition.row)) {
+    //     bool unobstructed
+    //         = this->unobstructedDiagonal(currentPosition, nextPosition);
 
-          // If not unobstructed, block rest of code
-          if (!unobstructed) {
-            return false;
-          }
-      }
-    }
+    //       // If not unobstructed, block rest of code
+    //       if (!unobstructed) {
+    //         return false;
+    //       }
+    //   }
+    // }
 
     // Check for moving, eating or invalid move.
     if (this->turn == currentPiece->getColor()) {  // Check if moving own piece
@@ -275,10 +271,7 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
             = this->board[currentPosition.row][currentPosition.column];
 
           this->board[currentPosition.row][currentPosition.column]
-            = new Open(Position {
-              currentPosition.row,
-              currentPosition.column
-            });
+            = new Open();
         }
 
         return eat;
@@ -288,6 +281,8 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
 
   return false;
 }
+
+
 
 Color Board::getTurn() {
   return this->turn;
@@ -304,5 +299,21 @@ void Board::changeTurn() {
   } else {
     this->turn = Color::WHITE;
     cout << "White to move." << endl;
+  }
+}
+
+std::string Board::endgameType() {
+  // Loop through board
+  // clear possible values
+  // run get possible values
+  // get king position and possible values
+
+  for (auto i = 0; i < this->board.size(); i++) {
+    for (auto j = 0; j < this->board[i].size(); j++) {
+      std::cout << this->board[i][j]->getColorSymbol() << this->board[i][j]->getSymbol() << ' ';
+      if (j == this->board[i].size() - 1) {
+        std::cout << std::endl;
+      }
+    }
   }
 }

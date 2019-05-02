@@ -2,83 +2,49 @@
 
 #include "Knight.h"
 
-Knight::Knight(Color color, Position position) : Piece('n', color, position, false, false) {
-  Movement movement;
-
-  movement.forward = false;
-  movement.backward = false;
-  movement.diagonal = false;
-  movement.left = false;
-  movement.right = false;
-  movement.knight = true;
-  movement.oneSpace = false;
-  movement.unlimitedSpaces = false;
-
-  Piece::setMovement(movement);
+Knight::Knight(Color color) : Piece('n', color, false, false) {
 }
 
 bool Knight::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
-  vector<Position> possibleMoves;
-
-  Position position {
-    currentPosition.column + 1,
-    currentPosition.row + 2
+  vector<Position> moves {
+    {
+      currentPosition.column + 1,
+      currentPosition.row + 2
+    },
+    {
+      currentPosition.column - 1,
+      currentPosition.row + 2
+    },
+    {
+      currentPosition.column + 2,
+      currentPosition.row + 1
+    },
+    {
+      currentPosition.column + 2,
+      currentPosition.row - 1
+    },
+    {
+      currentPosition.column + 1,
+      currentPosition.row - 2
+    },
+    {
+      currentPosition.column - 1,
+      currentPosition.row - 2
+    },
+    {
+      currentPosition.column - 2,
+      currentPosition.row + 1
+    },
+    {
+      currentPosition.column - 2,
+      currentPosition.row - 1
+    }
   };
 
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column - 1,
-    currentPosition.row + 2
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column + 2,
-    currentPosition.row + 1
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column + 2,
-    currentPosition.row - 1
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column + 1,
-    currentPosition.row - 2
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column - 1,
-    currentPosition.row - 2
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column - 2,
-    currentPosition.row + 1
-  };
-
-  possibleMoves.push_back(position);
-
-  position = {
-    currentPosition.column - 2,
-    currentPosition.row - 1
-  };
-
-  possibleMoves.push_back(position);
-
-  for (size_t i = 0; i < possibleMoves.size(); i++) {
-    cout << possibleMoves[i].column << possibleMoves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (possibleMoves[i].column == nextPosition.column && possibleMoves[i].row == nextPosition.row) {
+  for (size_t i = 0; i < moves.size(); i++) {
+    cout << moves[i].column << moves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
+    this->setPossibleMoves(board, moves[i]);
+    if (moves[i].column == nextPosition.column && moves[i].row == nextPosition.row) {
       return true;
     }
   }

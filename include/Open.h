@@ -7,7 +7,7 @@
 
 class Open : public Piece {
  public:
-  explicit Open(Position position);
+  explicit Open();
 
   bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
   bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;

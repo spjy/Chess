@@ -4,6 +4,7 @@
 #define INCLUDE_BOARD_H_
 
 #include <vector>
+#include <string>
 #include "Constants.h"
 #include "Piece.h"
 #include "Pawn.h"
@@ -31,6 +32,7 @@ class Board {
   bool unobstructedStraight(const Position &currentPosition, const Position &nextPosition);
   bool unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition);
   bool movement(const Position &currentPosition, const Position &nextPosition);
+  std::string endgameType();
 
   Color getTurn();
 

@@ -9,7 +9,7 @@ class Pawn : public Piece {
  private:
   bool moved = false;
  public:
-  Pawn(Color color, Position position);
+  Pawn(Color color);
 
   bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
   bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;

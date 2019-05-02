@@ -1,7 +1,7 @@
 
 #include "Open.h"
 
-Open::Open(Position position) : Piece('X', Color::NONE, position, false, false) {
+Open::Open() : Piece('X', Color::NONE, false, false) {
   
 }
 
