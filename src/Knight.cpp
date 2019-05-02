@@ -5,7 +5,10 @@
 Knight::Knight(Color color) : Piece('n', color, false, false) {
 }
 
-bool Knight::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Knight::eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   vector<Position> moves {
     {
       currentPosition.column + 1,
@@ -44,7 +47,8 @@ bool Knight::eat(vector<vector<Piece*> > &board, const Position &currentPosition
   for (size_t i = 0; i < moves.size(); i++) {
     cout << moves[i].column << moves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
     this->setPossibleMoves(board, moves[i]);
-    if (moves[i].column == nextPosition.column && moves[i].row == nextPosition.row) {
+    if (moves[i].column == nextPosition.column
+      && moves[i].row == nextPosition.row) {
       return true;
     }
   }
@@ -52,6 +56,9 @@ bool Knight::eat(vector<vector<Piece*> > &board, const Position &currentPosition
   return false;
 }
 
-bool Knight::move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Knight::move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   return this->eat(board, currentPosition, nextPosition);
 }

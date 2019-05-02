@@ -2,116 +2,133 @@
 
 #include "Queen.h"
 
-Queen::Queen(Color color) : Piece('q', color, true, true) {
+Queen::Queen(Color color) : Piece('q', color, true, true) {}
 
-}
-
-bool Queen::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Queen::eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   // Diagonal movement
-  for (auto row = currentPosition.row + 1; row < 8; row++) {
-    for (auto column = currentPosition.column + 1; column < 8; column++) {
-      Position position {
-        column,
-        row
-      };
+  int column = currentPosition.column + 1;
 
-      if (board[row][column]->getColor() != Color::NONE && board[row][column]->getColor() != this->color) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row + 1; row < 8; row++) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column < 8 && board[row][column]->getColor() != Color::NONE
+      && board[row][column]->getColor() != this->color) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column++;
   }
 
-  for (auto row = currentPosition.row - 1; row >= 0; row--) {
-    for (auto column = currentPosition.column - 1; column >= 0; column--) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column - 1;
 
-      if (board[row][column]->getColor() != Color::NONE && board[row][column]->getColor() != this->color) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row + 1; row < 8; row++) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column >= 0 && board[row][column]->getColor() != Color::NONE
+      && board[row][column]->getColor() != this->color) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column--;
   }
 
-  for (auto row = currentPosition.row + 1; row < 8; row++) {
-    for (auto column = currentPosition.column - 1; column >= 0; column--) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column + 1;
 
-      if (board[row][column]->getColor() != Color::NONE && board[row][column]->getColor() != this->color) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row - 1; row >= 0; row--) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column < 8 && board[row][column]->getColor() != Color::NONE
+      && board[row][column]->getColor() != this->color) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column++;
   }
 
-  for (auto row = currentPosition.row - 1; row >= 0; row--) {
-    for (auto column = currentPosition.column + 1; column < 8; column++) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column - 1;
 
-      if (board[row][column]->getColor() != Color::NONE && board[row][column]->getColor() != this->color) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row - 1; row >= 0; row--) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column >= 0 && board[row][column]->getColor() != Color::NONE
+      && board[row][column]->getColor() != this->color) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column--;
   }
 
   // Straight movement
-  for (auto i = currentPosition.row + 1; i < 8; i++) {
+  for (int i = currentPosition.row + 1; i < 8; i++) {
     Position position {
       currentPosition.column,
       i
     };
 
-    if (board[i][currentPosition.column]->getColor() != Color::NONE && board[i][currentPosition.column]->getColor() != this->color) {
+    if (board[i][currentPosition.column]->getColor() != Color::NONE
+      && board[i][currentPosition.column]->getColor() != this->color) {
       this->possibleMoves.push_back(position);
       break;
     }
   }
 
-  for (auto i = currentPosition.column + 1; i < 8; i++) {
+  for (int i = currentPosition.column + 1; i < 8; i++) {
     Position position {
       currentPosition.column,
       i
     };
 
-    if (board[i][currentPosition.column]->getColor() != Color::NONE && board[i][currentPosition.column]->getColor() != this->color) {
+    if (board[i][currentPosition.column]->getColor() != Color::NONE
+      && board[i][currentPosition.column]->getColor() != this->color) {
       this->possibleMoves.push_back(position);
       break;
     }
   }
 
-  for (auto i = currentPosition.row - 1; i >= 0; i--) {
+  for (int i = currentPosition.row - 1; i >= 0; i--) {
     Position position {
       i,
       currentPosition.row
     };
 
-    if (board[i][currentPosition.column]->getColor() != Color::NONE && board[i][currentPosition.column]->getColor() != this->color) {
+    if (board[i][currentPosition.column]->getColor() != Color::NONE
+      && board[i][currentPosition.column]->getColor() != this->color) {
       this->possibleMoves.push_back(position);
       break;
     }
   }
 
-  for (auto i = currentPosition.column - 1; i >= 0; i--) {
+  for (int i = currentPosition.column - 1; i >= 0; i--) {
     Position position {
       i,
       currentPosition.row
     };
 
-    if (board[i][currentPosition.column]->getColor() != Color::NONE && board[i][currentPosition.column]->getColor() != this->color) {
+    if (board[i][currentPosition.column]->getColor() != Color::NONE
+      && board[i][currentPosition.column]->getColor() != this->color) {
       this->possibleMoves.push_back(position);
       break;
     }
@@ -119,7 +136,8 @@ bool Queen::eat(vector<vector<Piece*> > &board, const Position &currentPosition,
 
   for (size_t move = 0; move < this->possibleMoves.size(); move++) {
     cout << this->possibleMoves[move].column << this->possibleMoves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (this->possibleMoves[move].column == nextPosition.column && this->possibleMoves[move].row == nextPosition.row) {
+    if (this->possibleMoves[move].column == nextPosition.column
+      && this->possibleMoves[move].row == nextPosition.row) {
       return true;
     }
   }
@@ -127,70 +145,81 @@ bool Queen::eat(vector<vector<Piece*> > &board, const Position &currentPosition,
   return false;
 }
 
-bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Queen::move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   // Diagonal movement
-  for (auto row = currentPosition.row + 1; row < 8; row++) {
-    for (auto column = currentPosition.column + 1; column < 8; column++) {
-      Position position {
-        column,
-        row
-      };
+  int column = currentPosition.column + 1;
 
-      if (board[row][column]->getColor() == Color::NONE) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row + 1; row < 8; row++) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column < 8 && board[row][column]->getColor() == Color::NONE) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column++;
   }
 
-  for (auto row = currentPosition.row - 1; row >= 0; row--) {
-    for (auto column = currentPosition.column - 1; column >= 0; column--) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column - 1;
 
-      if (board[row][column]->getColor() == Color::NONE) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row + 1; row < 8; row++) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column >= 0 && board[row][column]->getColor() == Color::NONE) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column--;
   }
 
-  for (auto row = currentPosition.row + 1; row < 8; row++) {
-    for (auto column = currentPosition.column - 1; column >= 0; column--) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column + 1;
 
-      if (board[row][column]->getColor() == Color::NONE) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row - 1; row >= 0; row--) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column < 8 && board[row][column]->getColor() == Color::NONE) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column++;
   }
 
-  for (auto row = currentPosition.row - 1; row >= 0; row--) {
-    for (auto column = currentPosition.column + 1; column < 8; column++) {
-      Position position {
-        column,
-        row
-      };
+  column = currentPosition.column - 1;
 
-      if (board[row][column]->getColor() == Color::NONE) {
-        this->possibleMoves.push_back(position);
-      } else {
-        break;
-      }
+  for (int row = currentPosition.row - 1; row >= 0; row--) {
+    Position position {
+      column,
+      row
+    };
+
+    if (column >= 0 && board[row][column]->getColor() == Color::NONE) {
+      this->possibleMoves.push_back(position);
+    } else {
+      break;
     }
+
+    column--;
   }
 
   // Straight movement
-  for (auto i = currentPosition.row + 1; i < 8; i++) {
+  for (int i = currentPosition.row + 1; i < 8; i++) {
     Position position {
       currentPosition.column,
       i
@@ -203,7 +232,7 @@ bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition
     }
   }
 
-  for (auto i = currentPosition.column + 1; i < 8; i++) {
+  for (int i = currentPosition.column + 1; i < 8; i++) {
     Position position {
       i,
       currentPosition.row
@@ -216,7 +245,7 @@ bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition
     }
   }
 
-  for (auto i = currentPosition.row - 1; i >= 0; i--) {
+  for (int i = currentPosition.row - 1; i >= 0; i--) {
     Position position {
       currentPosition.column,
       i
@@ -229,7 +258,7 @@ bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition
     }
   }
 
-  for (auto i = currentPosition.column - 1; i >= 0; i--) {
+  for (int i = currentPosition.column - 1; i >= 0; i--) {
     Position position {
       i,
       currentPosition.row
@@ -244,7 +273,8 @@ bool Queen::move(vector<vector<Piece*> > &board, const Position &currentPosition
 
   for (size_t move = 0; move < this->possibleMoves.size(); move++) {
     cout << this->possibleMoves[move].column << this->possibleMoves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (this->possibleMoves[move].column == nextPosition.column && this->possibleMoves[move].row == nextPosition.row) {
+    if (this->possibleMoves[move].column == nextPosition.column
+      && this->possibleMoves[move].row == nextPosition.row) {
       return true;
     }
   }

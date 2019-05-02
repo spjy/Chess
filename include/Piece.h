@@ -35,9 +35,17 @@ class Piece {
   char getColorSymbol();
   void clearPossibleMoves();
 
-  void setPossibleMoves(vector<vector<Piece*> > &board, const Position &position);
-  virtual bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
-  virtual bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) = 0;
+  void setPossibleMoves(
+    vector<vector<Piece*> > &board,
+    const Position &position);
+  virtual bool move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) = 0;
+  virtual bool eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) = 0;
 };
 
 #endif  // INCLUDE_PIECE_H_

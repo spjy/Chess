@@ -29,9 +29,15 @@ class Board {
   void printBoard();
 
   bool checkIfOffBoard();
-  bool unobstructedStraight(const Position &currentPosition, const Position &nextPosition);
-  bool unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition);
-  bool movement(const Position &currentPosition, const Position &nextPosition);
+  bool unobstructedStraight(
+    const Position &currentPosition,
+    const Position &nextPosition);
+  bool unobstructedDiagonal(
+    const Position &currentPosition,
+    const Position &nextPosition);
+  bool movement(
+    const Position &currentPosition,
+    const Position &nextPosition);
   std::string endgameType();
 
   Color getTurn();

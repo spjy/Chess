@@ -9,11 +9,22 @@ class Pawn : public Piece {
  private:
   bool moved = false;
  public:
-  Pawn(Color color);
+  explicit Pawn(Color color);
 
-  bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
-  bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
-  void promote(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition);
+  bool move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) override;
+
+  bool eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) override;
+
+  void promote(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition);
 };
 
 #endif  // INCLUDE_PAWN_H_

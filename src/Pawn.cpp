@@ -6,13 +6,13 @@
 #include "Rook.h"
 #include "Knight.h"
 
-Pawn::Pawn(Color color) : Piece('p', color, false, false) {
-}
+Pawn::Pawn(Color color) : Piece('p', color, false, false) {}
 
-bool Pawn::eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Pawn::eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   vector<Position> moves;
-  // Color color = board[currentPosition.row][currentPosition.row]->ge
-
   // TODO: En Passant
   if (this->color == Color::WHITE) {
     moves = {
@@ -41,7 +41,8 @@ bool Pawn::eat(vector<vector<Piece*> > &board, const Position &currentPosition, 
   for (auto move = 0; move < moves.size(); move++) {
     this->setPossibleMoves(board, moves[move]);
     cout << moves[move].column << moves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (moves[move].column == nextPosition.column && moves[move].row == nextPosition.row) {
+    if (moves[move].column == nextPosition.column
+      && moves[move].row == nextPosition.row) {
       return true;
     }
   }
@@ -49,7 +50,10 @@ bool Pawn::eat(vector<vector<Piece*> > &board, const Position &currentPosition, 
   return false;
 }
 
-bool Pawn::move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+bool Pawn::move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   vector<Position> moves;
   Position move;
 
@@ -71,7 +75,7 @@ bool Pawn::move(vector<vector<Piece*> > &board, const Position &currentPosition,
       currentPosition.column,
       currentPosition.row + 1
     };
-    // TODO: En Passant  
+    // TODO: En Passant
     moves.push_back(position);
   } else if (this->color == Color::BLACK) {
     if (!this->moved) {
@@ -90,14 +94,15 @@ bool Pawn::move(vector<vector<Piece*> > &board, const Position &currentPosition,
       currentPosition.column,
       currentPosition.row - 1
     };
-    // TODO: En Passant  
+    // TODO: En Passant
     moves.push_back(position);
   }
 
-  for (size_t move = 0; move < moves.size(); move++) {
+  for (auto move = 0; move < moves.size(); move++) {
     cout << moves[move].column << moves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
     this->setPossibleMoves(board, moves[move]);
-    if (moves[move].column == nextPosition.column && moves[move].row == nextPosition.row) {
+    if (moves[move].column == nextPosition.column
+      && moves[move].row == nextPosition.row) {
       // Check if pawn is promoted
       if (nextPosition.row == 8 || nextPosition.row == 0) {
         this->promote(board, currentPosition, nextPosition);
@@ -109,7 +114,10 @@ bool Pawn::move(vector<vector<Piece*> > &board, const Position &currentPosition,
   return false;
 }
 
-void Pawn::promote(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) {
+void Pawn::promote(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) {
   char piece;
   
   cout << "Enter the piece you want to promote this pawn to (q, b, n, r):" << endl;

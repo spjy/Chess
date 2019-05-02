@@ -42,7 +42,9 @@ char Piece::getColorSymbol() {
   return ' ';
 }
 
-void Piece::setPossibleMoves(vector<vector<Piece*> > &board, const Position &position) {
+void Piece::setPossibleMoves(
+  vector<vector<Piece*> > &board,
+  const Position &position) {
   if (position.row >= 0 && position.row < 8
     && position.column >= 0 && position.column < 8) {
       this->possibleMoves.push_back(position);

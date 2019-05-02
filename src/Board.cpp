@@ -64,9 +64,10 @@ void Board::printBoard() {
   // Reverse board so it is with respect to the white side.
   std::reverse(reversedBoard.begin(), reversedBoard.end());
 
-  for (auto i = 0; i < reversedBoard.size(); i++) {
-    for (auto j = 0; j < reversedBoard[i].size(); j++) {
-      std::cout << reversedBoard[i][j]->getColorSymbol() << reversedBoard[i][j]->getSymbol() << ' ';
+  for (int i = 0; i < reversedBoard.size(); i++) {
+    for (int j = 0; j < reversedBoard[i].size(); j++) {
+      std::cout << reversedBoard[i][j]->getColorSymbol()
+        << reversedBoard[i][j]->getSymbol() << ' ';
       if (j == reversedBoard[i].size() - 1) {
         std::cout << std::endl;
       }
@@ -80,7 +81,9 @@ bool Board::checkIfOffBoard() {
   return true;
 }
 
-bool Board::unobstructedStraight(const Position &currentPosition, const Position &nextPosition) {
+bool Board::unobstructedStraight(
+  const Position &currentPosition,
+  const Position &nextPosition) {
   // Movement will be column-wise
   if (currentPosition.row == nextPosition.row) {  // a1 a3
     // Compare which column is the lower value
@@ -91,14 +94,14 @@ bool Board::unobstructedStraight(const Position &currentPosition, const Position
     // Movement will be to the right
     if (currentPosition.column < nextPosition.column) {
       // Check if the pieces in between are of Color::NONE, if so not obstructed
-      for (auto column = currentPosition.column + 1; column < distance - 1; column++) {
+      for (int column = currentPosition.column + 1; column < distance - 1; column++) {
         if (this->board[currentPosition.row][column]->getColor() != Color::NONE) {
           return false;
         }
       }
     } else if (currentPosition.column
       > nextPosition.column) {  // Movement will be to the left
-      for (auto column = nextPosition.column + 1; column < distance - 1; column++) {
+      for (int column = nextPosition.column + 1; column < distance - 1; column++) {
         if (this->board[currentPosition.row][column]->getColor() != Color::NONE) {
           return false;
         }
@@ -117,7 +120,7 @@ bool Board::unobstructedStraight(const Position &currentPosition, const Position
     // Movement will be to the right
     if (currentPosition.row < nextPosition.row) {
       // Check if the pieces in between are of Color::NONE, if so not obstructed
-      for (auto row = currentPosition.row + 1; row < distance - 1; row++) {
+      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
         // -> accesses the function
         if (this->board[row][currentPosition.column]->getColor() != Color::NONE) {
           return false;
@@ -125,7 +128,7 @@ bool Board::unobstructedStraight(const Position &currentPosition, const Position
       }
     } else if (currentPosition.row
       > nextPosition.row) {  // Movement will be to the left
-      for (auto row = nextPosition.row + 1; row < distance - 1; row++) {
+      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
         if (this->board[row][currentPosition.column]->getColor() != Color::NONE) {
           return false;
         }
@@ -140,48 +143,48 @@ bool Board::unobstructedStraight(const Position &currentPosition, const Position
 
 bool Board::unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition) {
   // If diagonal movement
-  if ((currentPosition.row != nextPosition.row) 
+  if ((currentPosition.row != nextPosition.row)
     && (currentPosition.column != nextPosition.row)) {
-      int distance = static_cast<int>(
-        abs(currentPosition.row - nextPosition.row));
+    int distance = static_cast<int>(
+      abs(currentPosition.row - nextPosition.row));
 
-      if (currentPosition.column < nextPosition.column && currentPosition.row < nextPosition.row) { // upper right
-        for (auto row = currentPosition.row + 1; row < distance - 1; row++) {
-          for (auto column = currentPosition.column + 1; row < distance - 1; column++) {
-            if (this->board[row][column]->getColor() != Color::NONE) {
-              return false;
-            }
+    if (currentPosition.column < nextPosition.column && currentPosition.row < nextPosition.row) { // upper right
+      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
+        for (int column = currentPosition.column + 1; row < distance - 1; column++) {
+          if (this->board[row][column]->getColor() != Color::NONE) {
+            return false;
           }
         }
-        return true;
-      } else if (currentPosition.column > nextPosition.column && currentPosition.row > nextPosition.row) {  // lower left
-        for (auto row = nextPosition.row + 1; row < distance - 1; row++) {
-          for (size_t column = nextPosition.column + 1; row < distance - 1; column++) {
-            if (this->board[row][column]->getColor() != Color::NONE) {
-              return false;
-            }
-          }
-        }
-        return true;
-      } else if (currentPosition.column > nextPosition.column && currentPosition.row < nextPosition.row) {  // upper left
-        for (auto row = currentPosition.row + 1; row < distance - 1; row++) {
-          for (auto column = nextPosition.column + 1; row < distance - 1; column++) {
-            if (this->board[row][column]->getColor() != Color::NONE) {
-              return false;
-            }
-          }
-        }
-        return true;
-      } else if (currentPosition.column < nextPosition.column && currentPosition.row > nextPosition.row) {  // lower right
-        for (auto row = nextPosition.row + 1; row < distance - 1; row++) {
-          for (auto column = currentPosition.column + 1; row < distance - 1; column++) {
-            if (this->board[row][column]->getColor() != Color::NONE) {
-              return false;
-            }
-          }
-        }
-        return true;
       }
+      return true;
+    } else if (currentPosition.column > nextPosition.column && currentPosition.row > nextPosition.row) {  // lower left
+      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
+        for (size_t column = nextPosition.column + 1; row < distance - 1; column++) {
+          if (this->board[row][column]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      }
+      return true;
+    } else if (currentPosition.column > nextPosition.column && currentPosition.row < nextPosition.row) {  // upper left
+      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
+        for (int column = nextPosition.column + 1; row < distance - 1; column++) {
+          if (this->board[row][column]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      }
+      return true;
+    } else if (currentPosition.column < nextPosition.column && currentPosition.row > nextPosition.row) {  // lower right
+      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
+        for (int column = currentPosition.column + 1; row < distance - 1; column++) {
+          if (this->board[row][column]->getColor() != Color::NONE) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
   }
 
   return false;
@@ -308,8 +311,8 @@ std::string Board::endgameType() {
   // run get possible values
   // get king position and possible values
 
-  for (auto i = 0; i < this->board.size(); i++) {
-    for (auto j = 0; j < this->board[i].size(); j++) {
+  for (int i = 0; i < this->board.size(); i++) {
+    for (int j = 0; j < this->board[i].size(); j++) {
       std::cout << this->board[i][j]->getColorSymbol() << this->board[i][j]->getSymbol() << ' ';
       if (j == this->board[i].size() - 1) {
         std::cout << std::endl;

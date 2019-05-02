@@ -9,8 +9,15 @@ class Rook : public Piece {
  public:
   Rook(Color color);
 
-  bool move(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
-  bool eat(vector<vector<Piece*> > &board, const Position &currentPosition, const Position &nextPosition) override;
+  bool move(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) override;
+
+  bool eat(
+    vector<vector<Piece*> > &board,
+    const Position &currentPosition,
+    const Position &nextPosition) override;
 };
 
 #endif  // INCLUDE_ROOK_H_
@@ -24,5 +31,4 @@ class Rook : public Piece {
 // Loop from lowest value pos. up to other pos.
 // ^ -> lowest value pos. could be either curr. or target pos.
 // Do this loop within the move/eat functions. *********
-// Check if there is a none open piece in it's way. 
-
+// Check if there is a none open piece in it's way.
