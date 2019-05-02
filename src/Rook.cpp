@@ -61,9 +61,8 @@ bool Rook::eat(
   }
 
   for (size_t move = 0; move < this->possibleMoves.size(); move++) {
-    cout << this->possibleMoves[move].column << this->possibleMoves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (this->possibleMoves[move].column == nextPosition.column
-      && this->possibleMoves[move].row == nextPosition.row) {
+    
+    if (this->possibleMoves[move] == nextPosition) {
       return true;
     }
   }
@@ -128,9 +127,8 @@ bool Rook::move(
   }
 
   for (size_t move = 0; move < this->possibleMoves.size(); move++) {
-    cout << this->possibleMoves[move].column << this->possibleMoves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (this->possibleMoves[move].column == nextPosition.column
-      && this->possibleMoves[move].row == nextPosition.row) {
+    
+    if (this->possibleMoves[move] == nextPosition) {
       return true;
     }
   }

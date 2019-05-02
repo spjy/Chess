@@ -45,10 +45,8 @@ bool King::eat(
   };
 
   for (size_t i = 0; i < moves.size(); i++) {
-    cout << moves[i].column << moves[i].row << " | " << nextPosition.column << nextPosition.row << endl;
     this->setPossibleMoves(board, moves[i]);
-    if (moves[i].column == nextPosition.column
-      && moves[i].row == nextPosition.row) {
+    if (moves[i] == nextPosition) {
       return true;
     }
   }

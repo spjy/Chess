@@ -34,6 +34,7 @@ class Piece {
   Color getColor();
   char getColorSymbol();
   void clearPossibleMoves();
+  vector<Position> getPossibleMoves();
 
   void setPossibleMoves(
     vector<vector<Piece*> > &board,

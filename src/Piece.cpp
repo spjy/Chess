@@ -54,3 +54,7 @@ void Piece::setPossibleMoves(
 void Piece::clearPossibleMoves() {
   this->possibleMoves.clear();
 }
+
+vector<Position> Piece::getPossibleMoves() {
+  return this->possibleMoves;
+}

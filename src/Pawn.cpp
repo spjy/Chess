@@ -40,9 +40,7 @@ bool Pawn::eat(
 
   for (auto move = 0; move < moves.size(); move++) {
     this->setPossibleMoves(board, moves[move]);
-    cout << moves[move].column << moves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
-    if (moves[move].column == nextPosition.column
-      && moves[move].row == nextPosition.row) {
+    if (moves[move] == nextPosition) {
       return true;
     }
   }
@@ -99,12 +97,10 @@ bool Pawn::move(
   }
 
   for (auto move = 0; move < moves.size(); move++) {
-    cout << moves[move].column << moves[move].row << " | " << nextPosition.column << nextPosition.row << endl;
     this->setPossibleMoves(board, moves[move]);
-    if (moves[move].column == nextPosition.column
-      && moves[move].row == nextPosition.row) {
+    if (moves[move] == nextPosition) {
       // Check if pawn is promoted
-      if (nextPosition.row == 8 || nextPosition.row == 0) {
+      if (nextPosition.row == 7 || nextPosition.row == 0) {
         this->promote(board, currentPosition, nextPosition);
       }
       return true;

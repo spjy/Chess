@@ -81,116 +81,9 @@ bool Board::checkIfOffBoard() {
   return true;
 }
 
-bool Board::unobstructedStraight(
+bool Board::movement(
   const Position &currentPosition,
   const Position &nextPosition) {
-  // Movement will be column-wise
-  if (currentPosition.row == nextPosition.row) {  // a1 a3
-    // Compare which column is the lower value
-    // to check for direction of travel for the loop
-    int distance = static_cast<int>(
-      abs(currentPosition.column - nextPosition.column));
-
-    // Movement will be to the right
-    if (currentPosition.column < nextPosition.column) {
-      // Check if the pieces in between are of Color::NONE, if so not obstructed
-      for (int column = currentPosition.column + 1; column < distance - 1; column++) {
-        if (this->board[currentPosition.row][column]->getColor() != Color::NONE) {
-          return false;
-        }
-      }
-    } else if (currentPosition.column
-      > nextPosition.column) {  // Movement will be to the left
-      for (int column = nextPosition.column + 1; column < distance - 1; column++) {
-        if (this->board[currentPosition.row][column]->getColor() != Color::NONE) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  // Check if the rook and the target piece is in the same column
-  } else if (currentPosition.column
-    == nextPosition.column) {  // Movement will be row-wise
-    // Compare which column is the lower value
-    // to check for direction of travel for the loop
-    int distance = static_cast<int>(
-      abs(currentPosition.row - nextPosition.row));
-
-    // Movement will be to the right
-    if (currentPosition.row < nextPosition.row) {
-      // Check if the pieces in between are of Color::NONE, if so not obstructed
-      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
-        // -> accesses the function
-        if (this->board[row][currentPosition.column]->getColor() != Color::NONE) {
-          return false;
-        }
-      }
-    } else if (currentPosition.row
-      > nextPosition.row) {  // Movement will be to the left
-      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
-        if (this->board[row][currentPosition.column]->getColor() != Color::NONE) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-bool Board::unobstructedDiagonal(const Position &currentPosition, const Position &nextPosition) {
-  // If diagonal movement
-  if ((currentPosition.row != nextPosition.row)
-    && (currentPosition.column != nextPosition.row)) {
-    int distance = static_cast<int>(
-      abs(currentPosition.row - nextPosition.row));
-
-    if (currentPosition.column < nextPosition.column && currentPosition.row < nextPosition.row) { // upper right
-      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
-        for (int column = currentPosition.column + 1; row < distance - 1; column++) {
-          if (this->board[row][column]->getColor() != Color::NONE) {
-            return false;
-          }
-        }
-      }
-      return true;
-    } else if (currentPosition.column > nextPosition.column && currentPosition.row > nextPosition.row) {  // lower left
-      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
-        for (size_t column = nextPosition.column + 1; row < distance - 1; column++) {
-          if (this->board[row][column]->getColor() != Color::NONE) {
-            return false;
-          }
-        }
-      }
-      return true;
-    } else if (currentPosition.column > nextPosition.column && currentPosition.row < nextPosition.row) {  // upper left
-      for (int row = currentPosition.row + 1; row < distance - 1; row++) {
-        for (int column = nextPosition.column + 1; row < distance - 1; column++) {
-          if (this->board[row][column]->getColor() != Color::NONE) {
-            return false;
-          }
-        }
-      }
-      return true;
-    } else if (currentPosition.column < nextPosition.column && currentPosition.row > nextPosition.row) {  // lower right
-      for (int row = nextPosition.row + 1; row < distance - 1; row++) {
-        for (int column = currentPosition.column + 1; row < distance - 1; column++) {
-          if (this->board[row][column]->getColor() != Color::NONE) {
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-  }
-
-  return false;
-}
-
-bool Board::movement(const Position &currentPosition, const Position &nextPosition) {
   // If within board constraints
   if (currentPosition.row >= 0 && currentPosition.row < 8
     && currentPosition.column >= 0 && currentPosition.column < 8
@@ -199,53 +92,10 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
     Piece* currentPiece
       = this->board[currentPosition.row][currentPosition.column];
 
-    this->board[currentPosition.row][currentPosition.column]->clearPossibleMoves();
-    
+    this->board[currentPosition.row][currentPosition.column]
+      ->clearPossibleMoves();
+
     Piece* nextPiece = this->board[nextPosition.row][nextPosition.column];
-
-    // // Check if there are any obstructions between spaces for straight movements
-    // if (currentPiece->hasUnlimitedStraight() && !currentPiece->hasUnlimitedDiagonal()) {
-    //   bool unobstructed
-    //     = this->unobstructedStraight(currentPosition, nextPosition);
-
-    //   // If not unobstructed, block rest of code
-    //   if (!unobstructed) {
-    //     return false;
-    //   }
-    // }
-
-    // // Check if there are any obstructions between spaces for diagonal movements
-    // if (currentPiece->hasUnlimitedDiagonal() && !currentPiece->hasUnlimitedStraight()) {
-    //   bool unobstructed
-    //     = this->unobstructedDiagonal(currentPosition, nextPosition);
-
-    //   // If not unobstructed, block rest of code
-    //   if (!unobstructed) {
-    //     return false;
-    //   }
-    // }
-
-    // // Queen
-    // if (currentPiece->hasUnlimitedStraight() && currentPiece->hasUnlimitedDiagonal()) {
-    //   if ((currentPosition.row == nextPosition.row) || (currentPosition.column == nextPosition.column)) {
-    //     bool unobstructed
-    //       = this->unobstructedStraight(currentPosition, nextPosition);
-
-    //     // If not unobstructed, block rest of code
-    //     if (!unobstructed) {
-    //       return false;
-    //     }
-    //   } else if ((currentPosition.row != nextPosition.row) 
-    //     && (currentPosition.column != nextPosition.row)) {
-    //     bool unobstructed
-    //         = this->unobstructedDiagonal(currentPosition, nextPosition);
-
-    //       // If not unobstructed, block rest of code
-    //       if (!unobstructed) {
-    //         return false;
-    //       }
-    //   }
-    // }
 
     // Check for moving, eating or invalid move.
     if (this->turn == currentPiece->getColor()) {  // Check if moving own piece
@@ -285,8 +135,6 @@ bool Board::movement(const Position &currentPosition, const Position &nextPositi
   return false;
 }
 
-
-
 Color Board::getTurn() {
   return this->turn;
 }
@@ -308,14 +156,89 @@ void Board::changeTurn() {
 std::string Board::endgameType() {
   // Loop through board
   // clear possible values
-  // run get possible values
-  // get king position and possible values
+  // run get possible values move/eat
+  // get king position and possible moves
 
-  for (int i = 0; i < this->board.size(); i++) {
-    for (int j = 0; j < this->board[i].size(); j++) {
-      std::cout << this->board[i][j]->getColorSymbol() << this->board[i][j]->getSymbol() << ' ';
-      if (j == this->board[i].size() - 1) {
+  // first, check current turn things
+  // check if king can move
+  // check if nextPosition is threatened
+  //
+
+  for (int row = 0; row < this->board.size(); row++) {
+    for (int column = 0; column < this->board[row].size(); column++) {
+      std::cout << this->board[row][column]->getColorSymbol() << this->board[row][column]->getSymbol() << ' ';
+      if (this->board[row][column]->getColor() != Color::NONE) {
+        this->board[row][column]->clearPossibleMoves();
+        this->board[row][column]->move(this->board, { row, column }, { 0, 0 });
+        this->board[row][column]->eat(this->board, { row, column }, { 0, 0 });
+
+        if (this->board[row][column]->getColor() == Color::WHITE) {
+          if (this->board[row][column]->getSymbol() == 'k') {
+            whiteKingMoves = this->board[row][column]->getPossibleMoves();
+          }
+
+          this->whiteMoves.insert(
+            this->whiteMoves.end(),
+            this->board[row][column]->getPossibleMoves().begin(),
+            this->board[row][column]->getPossibleMoves().end());
+        } else if (this->board[row][column]->getColor() == Color::BLACK) {
+          if (this->board[row][column]->getSymbol() == 'k') {
+            blackKingMoves = this->board[row][column]->getPossibleMoves();
+          }
+
+          this->blackMoves.insert(
+            this->blackMoves.end(),
+            this->board[row][column]->getPossibleMoves().begin(),
+            this->board[row][column]->getPossibleMoves().end());
+        }
+      }
+      if (column == this->board[row].size() - 1) {
         std::cout << std::endl;
+      }
+    }
+  }
+
+  // store threatening piece position
+
+  // Check for check
+}
+
+void Board::clearWhiteMoves() {
+  this->whiteMoves.clear();
+}
+
+void Board::clearBlackMoves() {
+  this->blackMoves.clear();
+}
+
+bool Board::mate() {
+  vector<Position> moves;
+
+  if (this->turn == Color::WHITE) {  // black's turn after white went this turn
+    // Loop through white moves, if
+    for (int i = 0; i < this->whiteMoves.size(); i++) {
+      if (this->whiteMoves[i] == this->blackKingPosition) {
+        this->blackChecked = true;
+      }
+    }
+
+    // if (this->blackChecked) {
+    //   for (int i = 0; i < this->blackKingMoves.size(); i++) {
+    //     for (int j = 0; i < this->whiteMoves.size(); i++) {
+    //       if (this->blackKingMoves[i] == this->whiteMoves[i]) {
+
+    //       }
+    //       // if threatening piece can be killed
+    //     }
+    //   }
+    //   if (this->blackKingMoves.size() == 0) {
+
+    //   }
+    // }
+  } else if (this->turn == Color::BLACK) {
+    for (int i = 0; i < this->blackKingMoves.size(); i++) {
+      if (this->blackMoves[i] == this->whiteKingPosition) {
+        this->whiteChecked = true;
       }
     }
   }

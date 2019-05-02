@@ -20,6 +20,14 @@ using std::vector;
 class Board {
  public:
   vector<vector<Piece*> > board;
+  vector< Position > whiteMoves;
+  vector< Position > blackMoves;
+  bool whiteChecked;
+  bool blackChecked;
+  vector<Position> whiteKingMoves;
+  vector<Position> blackKingMoves;
+  Position whiteKingPosition;
+  Position blackKingPosition;
   Color turn = Color::WHITE;
 
   Board();
@@ -43,8 +51,11 @@ class Board {
   Color getTurn();
 
   void setTurn(Color turn);
-
   void changeTurn();
+
+  void clearWhiteMoves();
+  void clearBlackMoves();
+  bool mate();
 };
 
 #endif  // INCLUDE_BOARD_H_
