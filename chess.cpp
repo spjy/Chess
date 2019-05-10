@@ -35,7 +35,7 @@ int main() {
 
     if (moved) {
       cout << "Moved." << endl;
-      // board.changeTurn();
+      board.changeTurn();
     } else {
       cout << "Could not move" << endl;
     }
